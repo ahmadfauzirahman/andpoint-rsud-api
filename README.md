@@ -2,7 +2,7 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://rsudarifinachmad.riau.go.id/wp-content/uploads/2018/08/cropped-PAVICON.png" height="100px">
     </a>
-    <h1 align="center">RSUD END POINT RSUD API</h1>
+    <h1 align="center">RSUD END POINT API</h1>
     <br>
 </p>
 
