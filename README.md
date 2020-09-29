@@ -40,6 +40,6 @@ yang ditentukan sebagai berikut:
 Contributors
 ------------
 
-<p>Berikut daftar kontributor <b>RSUD ARIFIN ACHMAD AKUNTANSI</b></p>
+<p>Berikut daftar kontributor <b>RSUD ARIFIN ACHMAD END POINT</b></p>
 
 1. AHMAD FAUZI RAHMAN ST , MTA
