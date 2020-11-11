@@ -12,7 +12,16 @@ class Helper
         's' => 'Sakit'
     ];
 
+    const StatusPegawai = [
+        'PEGAWAI NON SHIFF' => 'PEGAWAI NON SHIFF',
+        'PEGAWAI SHIFF' => 'PEGAWAI SHIFF',
+        'DOKTER ON SITE' => 'DOKTER ON SITE'
+    ];
 
+    const Jadwal = [
+        'Masuk'=>'Masuk',
+        'Pulang'=>'Pulang'
+    ];
     static function StatusMasuk($r)
     {
         switch ($r) {
@@ -110,6 +119,4 @@ class Helper
 
         return $hari_ini;
     }
-
-    
 }

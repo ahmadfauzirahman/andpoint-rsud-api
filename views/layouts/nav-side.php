@@ -9,21 +9,24 @@ use yii\helpers\Url;
     <a href="<?= Url::to(['/site/index']) ?>" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
 </li>
 
-<li class="text-muted menu-title">Kepagawaian Modul</li>
-<li>
+<li class="text-muted menu-title" style="display: none;">Kepagawaian Modul</li>
+<li style="display: none;">
     <a href="<?= Url::to(['/master-pegawai/index']) ?>" class="waves-effect"><i class="dripicons-user-group"></i> <span> Pegawai </span> </a>
 </li>
-<li>
+<li style="display: none;">
     <a href="<?= Url::to(['/peniliain-iki/index']) ?>" class="waves-effect"><i class="mdi mdi-circle-edit-outline"></i> <span> Penilaian Iki </span> </a>
 </li>
 <li class="text-muted menu-title">Absensi Modul</li>
 <li>
     <a href="<?= Url::to(['/master-absensi/index']) ?>" class="waves-effect"><i class="mdi mdi-car-brake-abs"></i> <span> Data Absensi </span> </a>
 </li>
+<li>
+    <a href="<?= Url::to(['/master-jadwal/index']) ?>" class="waves-effect"><i class="mdi mdi-altimeter"></i> <span> Master Jadwal </span> </a>
+</li>
 
 
-<li class="text-muted menu-title">Master Modul</li>
-<li class="has_sub">
+<li class="text-muted menu-title" style="display: none;">Master Modul</li>
+<li class="has_sub" style="display: none;">
     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-invert-colors"></i> <span> Master HRM </span> <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
         <li><a href="<?= Url::to(['/DataMaster/master-agama/index']) ?>">Agama</a></li>

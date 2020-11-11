@@ -12,6 +12,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'timeZone' => 'Asia/Jakarta',
     'components' => [
         'formatter' => [
             'dateFormat' => 'php:d-m-Y',

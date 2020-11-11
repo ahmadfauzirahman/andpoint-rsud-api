@@ -31,7 +31,8 @@
         "codeception/module-yii2": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
         "yiisoft/yii2-bootstrap4": "^2.0",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "tecnickcom/tc-lib-barcode": "^1.15"
 
     },
     "config": {

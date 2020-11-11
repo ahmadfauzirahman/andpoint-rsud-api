@@ -22,6 +22,12 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Quicksand', sans-serif !important;
+        }
+    </style>
     <?php $this->head() ?>
 </head>
 
@@ -103,7 +109,7 @@ AppAsset::register($this);
                         <img src="<?= Yii::$app->request->baseUrl ?>/img/user.png" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
                         <div class="user-status offline"><i class="mdi mdi-adjust"></i></div>
                     </div>
-                    <h5><a href="#"><?= Yii::$app->user->identity->getNama() ?></a> </h5>
+                    <h5><a href="#"><?= Yii::$app->user->identity->nama ?></a> </h5>
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a href="#">
