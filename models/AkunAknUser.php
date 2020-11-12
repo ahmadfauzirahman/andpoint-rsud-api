@@ -6,7 +6,7 @@ use app\components\StatusAkun;
 use Yii;
 
 /**
- * This is the model class for table "akun.akn_user".
+ * This is the model class for table "sso.akn_user".
  *
  * @property int $userid
  * @property int $id_pegawai
@@ -165,20 +165,14 @@ class AkunAknUser extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * @return \yii\db\Connection the database connection used by this AR class.
-     */
-    public static function getDb()
-    {
-        return Yii::$app->get('dbSso');
-    }
+
 
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'akun.akn_user';
+        return 'sso.akn_user';
     }
 
     /**

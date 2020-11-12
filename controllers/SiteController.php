@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Kepegawaian\MasterRiwayatPenempatan;
 
 class SiteController extends Controller
 {
@@ -66,7 +67,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        if (Yii::$app->user->identity->getRoles() == 'NONMEDIS' || Yii::$app->user->identity->getRoles() == 'MEDIS') {
+        // echo '<pre>';
+        $penempatan = MasterRiwayatPenempatan::find()
+            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
+            ->orderBy('tanggal DESC')->limit(1)->one();
+            // var_dump($penempatan);
+            // exit;
+        if (Yii::$app->user->identity->roles == 'NONMEDIS' || Yii::$app->user->identity->roles == 'MEDIS') {
             return $this->redirect(['/master-pegawai/profile-saya']);
         }
 
@@ -134,6 +141,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-    
 }

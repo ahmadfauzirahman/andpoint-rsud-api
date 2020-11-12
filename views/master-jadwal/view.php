@@ -30,10 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             // 'id_jadwal',
-            'senin_kamis_masuk',
+            'kode_unit_kerja',
+            'senin_rabu_masuk',
+            'kamis',
             'jumat',
-            'sabtu',
             'status_pegawai',
+            'status_jadwal',
         ],
     ]) ?>
 

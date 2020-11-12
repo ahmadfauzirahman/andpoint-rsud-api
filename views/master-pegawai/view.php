@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kepegawaian\MasterPegawai */
 
-$this->title = $model->id_nip_nrp;
-$this->params['breadcrumbs'][] = ['label' => 'Master Pegawais', 'url' => ['index']];
+$this->title = $model->nama_lengkap;
+$this->params['breadcrumbs'][] = ['label' => 'Data Pegawai', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'pegawai_id',
+            // 'pegawai_id',
             'id_nip_nrp',
             'nama_lengkap',
             'gelar_sarjana_depan',
@@ -43,8 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'rt_tempat_tinggal',
             'rw_tempat_tinggal',
             [
-                'attribute'=>'desa_kelurahan',
-                'value'=> $model->desa->nama
+                'attribute' => 'desa_kelurahan',
+                'value' => $model->desa->nama
             ],
             'kecamatan',
             'kabupaten_kota',

@@ -8,4 +8,4 @@ Yii::setAlias('@.pegawai', 'http://pegawai.rsud-arifin.localhost');
 Yii::setAlias('@.dashboard', 'http://dashboard.rsud-arifin.localhost');
 Yii::setAlias('@.gizi', 'http://gizi.rsud-arifin.localhost');
 Yii::setAlias('@.pendaftaran', 'http://pendaftaran.rsud-arifin.localhost');
-Yii::setAlias('@.hrm', 'http://hrm.rsud-arifin.localhost');
+Yii::setAlias('@.hrm', 'http://presensi.rsud-arifin.localhost');

@@ -2,6 +2,8 @@
 
 namespace app\components;
 
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
+
 class Helper
 {
 
@@ -19,8 +21,8 @@ class Helper
     ];
 
     const Jadwal = [
-        'Masuk'=>'Masuk',
-        'Pulang'=>'Pulang'
+        'Masuk' => 'Masuk',
+        'Pulang' => 'Pulang'
     ];
     static function StatusMasuk($r)
     {
@@ -118,5 +120,11 @@ class Helper
         }
 
         return $hari_ini;
+    }
+
+    static function UnitKerja()
+    {
+        $master = MasterUnitPenempatan::find()->orderBy('nama DESC')->all();
+        return $master;
     }
 }

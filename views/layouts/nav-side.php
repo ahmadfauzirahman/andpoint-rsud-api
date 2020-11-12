@@ -23,7 +23,17 @@ use yii\helpers\Url;
 <li>
     <a href="<?= Url::to(['/master-jadwal/index']) ?>" class="waves-effect"><i class="mdi mdi-altimeter"></i> <span> Master Jadwal </span> </a>
 </li>
+<li class="text-muted menu-title">Master Pegawai</li>
+<li>
+    <a href="<?= Url::to(['/master-pegawai/index']) ?>" class="waves-effect"><i class="dripicons-user-group"></i> <span> Pegawai </span> </a>
+</li>
+<li>
+    <a href="<?= Url::to(['/master-riwayat-penempatan/index']) ?>" class="waves-effect"><i class="dripicons-checklist"></i> <span> Penempatan </span> </a>
+</li>
 
+<li>
+    <a href="<?= Url::to(['/master-unit-penempatan/index']) ?>" class="waves-effect"><i class="dripicons-checklist"></i> <span>Unit Penempatan </span> </a>
+</li>
 
 <li class="text-muted menu-title" style="display: none;">Master Modul</li>
 <li class="has_sub" style="display: none;">

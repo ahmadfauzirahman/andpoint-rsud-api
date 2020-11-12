@@ -2,17 +2,20 @@
 
 namespace app\models\Absensi\Master;
 
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 use Yii;
 
 /**
  * This is the model class for table "absensi.tb_jadwal".
  *
  * @property int $id_jadwal
- * @property string|null $senin_kamis_masuk
+ * @property string|null $senin_rabu_masuk
+ * @property string|null $kamis
  * @property string|null $jumat
- * @property string|null $sabtu
  * @property string|null $status_pegawai
  * @property string|null $status_jadwal
+ * @property string|null $is_del
+ * @property string|null $kode_unit_kerja
  */
 class MasterJadwal extends \yii\db\ActiveRecord
 {
@@ -30,7 +33,7 @@ class MasterJadwal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['senin_kamis_masuk', 'jumat', 'sabtu','status_jadwal'], 'safe'],
+            [['senin_rabu_masuk', 'is_del', 'kamis', 'jumat', 'status_jadwal', 'kode_unit_kerja'], 'safe'],
             [['status_pegawai'], 'string', 'max' => 100],
         ];
     }
@@ -42,10 +45,16 @@ class MasterJadwal extends \yii\db\ActiveRecord
     {
         return [
             'id_jadwal' => 'Id Jadwal',
-            'senin_kamis_masuk' => 'Senin Kamis',
+            'senin_rabu_masuk' => 'Senin Rabu',
+            'kamis' => 'Kamis',
             'jumat' => 'Jumat',
-            'sabtu' => 'Sabtu',
             'status_pegawai' => 'Status Pegawai',
+            'kode_unit_kerja' => 'Unit Kerja',
         ];
+    }
+
+    public function getUnit()
+    {
+        return $this->hasOne(MasterUnitPenempatan::className(),['kode'=> 'kode_unit_kerja']);
     }
 }

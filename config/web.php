@@ -45,7 +45,7 @@ $config = [
             'class' => 'app\models\User',
             'identityClass' => 'app\models\Identitas',
             'enableAutoLogin' => true,
-            'loginUrl' => '@.sso/masuk?b=http://hrm.rsud-arifin.localhost',
+            'loginUrl' => '@.sso/masuk?b=http://presensi.rsud-arifin.localhost',
             'identityCookie' => ['name' => '_identity-id', 'httpOnly' => true, 'domain' => 'rsud-arifin.localhost'],
         ],
         'errorHandler' => [
@@ -84,6 +84,16 @@ $config = [
         ],
     ],
     'params' => $params,
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to  
+            // use your own export download action or custom translation 
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+        ]
+    ],
 ];
 
 if (YII_ENV_DEV) {

@@ -1,26 +1,24 @@
 <?php
 
-namespace app\models\Absensi\Master;
+namespace app\models\Kepegawaian;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Absensi\Master\MasterJadwal;
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 
 /**
- * MasterJadwalSearch represents the model behind the search form of `app\models\Absensi\Master\MasterJadwal`.
+ * MasterUnitPenempatanSearch represents the model behind the search form of `app\models\Kepegawaian\Master\MasterUnitPenempatan`.
  */
-class MasterJadwalSearch extends MasterJadwal
+class MasterUnitPenempatanSearch extends MasterUnitPenempatan
 {
-
-    public $nama_unit;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id_jadwal'], 'integer'],
-            [['senin_rabu_masuk', 'kamis', 'nama_unit', 'jumat', 'status_pegawai', 'status_jadwal'], 'safe'],
+            [['kode', 'unit_rumpun'], 'integer'],
+            [['nama', 'kode_unitsub_maping_simrs'], 'safe'],
         ];
     }
 
@@ -42,7 +40,7 @@ class MasterJadwalSearch extends MasterJadwal
      */
     public function search($params)
     {
-        $query = MasterJadwal::find();
+        $query = MasterUnitPenempatan::find();
 
         // add conditions that should always apply here
 
@@ -60,14 +58,12 @@ class MasterJadwalSearch extends MasterJadwal
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_jadwal' => $this->id_jadwal,
-            'senin_rabu_masuk' => $this->senin_rabu_masuk,
-            'kamis' => $this->kamis,
-            'jumat' => $this->jumat,
-            'unit.nama' => $this->nama_unit
+            'kode' => $this->kode,
+            'unit_rumpun' => $this->unit_rumpun,
         ]);
 
-        $query->andFilterWhere(['ilike', 'status_pegawai', $this->status_pegawai]);
+        $query->andFilterWhere(['ilike', 'nama', $this->nama])
+            ->andFilterWhere(['ilike', 'kode_unitsub_maping_simrs', $this->kode_unitsub_maping_simrs]);
 
         return $dataProvider;
     }

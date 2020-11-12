@@ -4,20 +4,17 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\Absensi\Master\MasterJadwalSearch */
+/* @var $searchModel app\models\Kepegawaian\MasterRiwayatPenempatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Master Jadwal';
+$this->title = 'Master Riwayat Penempatan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="master-jadwal-index">
+<div class="master-riwayat-penempatan-index">
 
     <div class="card card-box">
-        <p>
-            <?= Html::a('Tambah Master Jadwal', ['create'], ['class' => 'btn btn-success']) ?>
-        </p>
 
-        <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['enablePushState' => false]); ?>
         <?php // echo $this->render('_search', ['model' => $searchModel]); 
         ?>
 
@@ -27,17 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                [
-                    'attribute' => 'nama_unit',
-                    'value' => function ($model) {
-                        return $model->unit->nama;
-                    }
-                ],
-                'senin_rabu_masuk',
-                'kamis',
-                'jumat',
-                'status_pegawai',
-                'status_jadwal',
+                // 'id',
+                'id_nip_nrp',
+                'nota_dinas',
+                'tanggal:date',
+                'atasan_langsung',
+                'penempatan',
+                'sdm_rumpun',
+                'sdm_sub_rumpun',
+                //'sdm_jenis',
+                //'dokumen',
+                'unit_kerja',
 
                 [
                     'class' => 'app\components\ActionColumn',
@@ -49,7 +46,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
 
         <?php Pjax::end(); ?>
-
     </div>
-
 </div>

@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
 use app\components\Breadcrumbs as ComponentsBreadcrumbs;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -24,7 +25,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * {
+        body,
+        html {
             font-family: 'Quicksand', sans-serif !important;
         }
     </style>
@@ -43,7 +45,7 @@ AppAsset::register($this);
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="index.html" class="logo"><span>H<span>RM</span></span><i class="mdi mdi-layers"></i></a>
+                <b><a style="font-family: 'Quicksand', sans-serif !important" href="<?= Url::to(['/site/index']) ?>" class="logo"><span>PRES<span>ENSI</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
@@ -157,10 +159,8 @@ AppAsset::register($this);
                     ]) ?>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-xl-12">
-                            <div class="card-box">
-                                <?= Alert::widget() ?>
-                                <?= $content ?>
-                            </div>
+                            <?= Alert::widget() ?>
+                            <?= $content ?>
                         </div>
                     </div>
 
@@ -259,6 +259,32 @@ AppAsset::register($this);
 
     <?php $this->endBody() ?>
 </body>
+
+<script>
+    yii.confirm = function(message, okCallback, cancelCallback) {
+        Swal.fire({
+            title: 'Perhatian!',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value) {
+                okCallback()
+                // console.log(okCallback);
+
+                // Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                // )
+            }
+        })
+    };
+</script>
 
 </html>
 <?php $this->endPage() ?>

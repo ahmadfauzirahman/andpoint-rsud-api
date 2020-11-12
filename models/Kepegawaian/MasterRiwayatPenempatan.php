@@ -52,14 +52,14 @@ class MasterRiwayatPenempatan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_nip_nrp' => 'Id Nip Nrp',
+            'id_nip_nrp' => 'Nip/Nrp',
             'nota_dinas' => 'Nota Dinas',
             'tanggal' => 'Tanggal',
             'atasan_langsung' => 'Atasan Langsung',
             'penempatan' => 'Penempatan',
-            'sdm_rumpun' => 'Sdm Rumpun',
-            'sdm_sub_rumpun' => 'Sdm Sub Rumpun',
-            'sdm_jenis' => 'Sdm Jenis',
+            'sdm_rumpun' => 'Rumpun',
+            'sdm_sub_rumpun' => 'Sub Rumpun',
+            'sdm_jenis' => 'Jenis',
             'dokumen' => 'Dokumen',
             'unit_kerja' => 'Unit Kerja',
         ];
