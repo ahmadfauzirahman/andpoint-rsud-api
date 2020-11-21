@@ -12,40 +12,45 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="master-absensi-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-body">
+                <p>
+                    <?= Html::a('Tambah Master Absensi', ['create'], ['class' => 'btn btn-success']) ?>
+                </p>
 
-    <p>
-        <?= Html::a('Tambah Master Absensi', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                <?php Pjax::begin(); ?>
+                <?php // echo $this->render('_search', ['model' => $searchModel]); 
+                ?>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                        // 'id_tb_absensi',
+                        // 'id_pegawai',
+                        'nip_nik',
+                        'jam_masuk',
+                        'jam_keluar',
+                        'tanggal_masuk',
+                        'lat',
+                        'long',
 
-            // 'id_tb_absensi',
-            // 'id_pegawai',
-            'nip_nik',
-            'jam_masuk',
-            'jam_keluar',
-            'tanggal_masuk',
-            'lat',
-            'long',
+                        [
+                            'class' => 'app\components\ActionColumn',
+                        ],
+                    ],
+                    'pager' => [
+                        'class' => 'app\components\GridPager',
+                    ],
+                ]); ?>
 
-            [
-                'class' => 'app\components\ActionColumn',
-            ],
-        ],
-        'pager' => [
-            'class' => 'app\components\GridPager',
-        ],
-    ]); ?>
+                <?php Pjax::end(); ?>
 
-    <?php Pjax::end(); ?>
+            </div>
+        </div>
+    </div>
 
 </div>

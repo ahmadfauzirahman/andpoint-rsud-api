@@ -2,6 +2,7 @@
 
 namespace app\models\Absensi;
 
+use app\models\Kepegawaian\MasterPegawai;
 use Yii;
 
 /**
@@ -16,6 +17,7 @@ use Yii;
  * @property string|null $lat
  * @property string|null $long
  * @property string|null $status
+ * @property string|null $how
  */
 class MasterAbsensi extends \yii\db\ActiveRecord
 {
@@ -33,7 +35,7 @@ class MasterAbsensi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jam_masuk', 'jam_keluar', 'tanggal_masuk'], 'safe'],
+            [['jam_masuk', 'jam_keluar', 'tanggal_masuk', 'how'], 'safe'],
             [['id_pegawai', 'status'], 'string', 'max' => 30],
             [['nip_nik'], 'string', 'max' => 40],
             [['lat', 'long'], 'string', 'max' => 20],
@@ -57,4 +59,13 @@ class MasterAbsensi extends \yii\db\ActiveRecord
             'status' => 'Status Absensi',
         ];
     }
+
+    public function getPegawai()
+    {
+        return $this->hasOne(MasterPegawai::className(), ['pegawai_id' => 'id_pegawai']);
+    }
+
+    public function getUnit()
+    {
+        }
 }

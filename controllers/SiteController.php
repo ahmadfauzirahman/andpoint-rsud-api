@@ -71,13 +71,13 @@ class SiteController extends Controller
         $penempatan = MasterRiwayatPenempatan::find()
             ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
             ->orderBy('tanggal DESC')->limit(1)->one();
-            // var_dump($penempatan);
-            // exit;
+        // var_dump($penempatan);
+        // exit;
         if (Yii::$app->user->identity->roles == 'NONMEDIS' || Yii::$app->user->identity->roles == 'MEDIS') {
             return $this->redirect(['/master-pegawai/profile-saya']);
         }
 
-        return $this->render('index');
+        return $this->render('index', ['model' => $penempatan]);
     }
 
     /**

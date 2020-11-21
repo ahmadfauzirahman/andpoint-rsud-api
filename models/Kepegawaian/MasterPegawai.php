@@ -2,6 +2,7 @@
 
 namespace app\models\Kepegawaian;
 
+use app\models\Kepegawaian\Master\MasterAgama;
 use app\models\Kepegawaian\Master\MasterKecamatan;
 use app\models\Kepegawaian\Master\MasterKelurahanDesa;
 use Yii;
@@ -91,7 +92,7 @@ class MasterPegawai extends \yii\db\ActiveRecord
     {
         return [
             [['id_nip_nrp'], 'required'],
-            [['tanggal_lahir', 'kode_prov_kab_kec_kelurahan','kode_prov_kab_kecamatan', 'nota_persetujuan_bkn_tanggal_cpns', 'sk_cpns_tanggal_cpns', 'tmt_cpns', 'sk_tanggal_pns', 'tmt_pns'], 'safe'],
+            [['tanggal_lahir', 'kode_prov_kab_kec_kelurahan', 'kode_prov_kab_kecamatan', 'nota_persetujuan_bkn_tanggal_cpns', 'sk_cpns_tanggal_cpns', 'tmt_cpns', 'sk_tanggal_pns', 'tmt_pns'], 'safe'],
             [['kode_pos', 'status_kepegawaian_id', 'jenis_kepegawaian_id', 'kode_pangkat_cpns', 'masa_kerja_tahun_cpns', 'masa_kerja_bulan_cpns', 'tinggi_keterangan_badan', 'berat_badan_keterangan_badan', 'status_aktif_pegawai', 'masa_kerja_honorer', 'tipe_user'], 'default', 'value' => null],
             [['kode_pos', 'status_kepegawaian_id', 'jenis_kepegawaian_id', 'kode_pangkat_cpns', 'masa_kerja_tahun_cpns', 'masa_kerja_bulan_cpns', 'tinggi_keterangan_badan', 'berat_badan_keterangan_badan', 'status_aktif_pegawai', 'masa_kerja_honorer', 'tipe_user'], 'integer'],
             [['pejabat_yang_menetapkan_cpns', 'sk_cpns_nomor_cpns'], 'string'],
@@ -191,5 +192,10 @@ class MasterPegawai extends \yii\db\ActiveRecord
     public function getKec()
     {
         return $this->hasOne(MasterKecamatan::className(), ['kode_prov_kab_kecamatan' => 'kecamatan']);
+    }
+
+    public function getReg()
+    {
+        return $this->hasOne(MasterAgama::className(), ['id' => 'agama']);
     }
 }

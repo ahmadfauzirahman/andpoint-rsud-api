@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Kepegawaian\MasterPegawai;
+use app\models\Kepegawaian\MasterRiwayatPenempatan;
 use app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,7 +30,7 @@ class MasterPegawaiController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','profile-saya'],
+                        'actions' => ['logout', 'index', 'profile-saya'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -126,7 +127,17 @@ class MasterPegawaiController extends Controller
 
     public function actionProfileSaya()
     {
-        return $this->render('profile-saya');
+        $penempatan = MasterRiwayatPenempatan::find()
+            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
+            ->orderBy('tanggal DESC')->limit(1)->one();
+
+        $modelPegawai = MasterPegawai::find()
+            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
+            ->one();
+        return $this->render('profile-saya', [
+            'model' => $penempatan,
+            'modelPegawai' => $modelPegawai
+        ]);
     }
 
     /**

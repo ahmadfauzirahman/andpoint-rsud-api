@@ -2,6 +2,9 @@
 
 namespace app\models\Kepegawaian;
 
+use app\models\Kepegawaian\Master\MasterSdmRumpun;
+use app\models\Kepegawaian\Master\MasterSdmSubRumpun;
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 use Yii;
 
 /**
@@ -63,5 +66,21 @@ class MasterRiwayatPenempatan extends \yii\db\ActiveRecord
             'dokumen' => 'Dokumen',
             'unit_kerja' => 'Unit Kerja',
         ];
+    }
+
+    public function getRum()
+    {
+        return $this->hasOne(MasterSdmRumpun::className(), ['kode' => 'sdm_rumpun']);
+    }
+
+    public function getSubrumpun()
+    {
+        return $this->hasOne(MasterSdmSubRumpun::className(), ['kode' => 'sdm_sub_rumpun']);
+    }
+
+    public function getUnit()
+    {
+        return $this->hasOne(MasterUnitPenempatan::className(), ['kode' => 'unit_kerja']);
+
     }
 }

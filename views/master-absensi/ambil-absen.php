@@ -1,28 +1,16 @@
 <?php
 
-/* @var $this yii\web\View */
-
+use app\models\Absensi\MasterAbsensi;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\Pjax;
 
-$this->title = 'Dashboard';
-// instantiate the barcode class
-// $barcode = new Barcode;
-$barcode = new \Com\Tecnick\Barcode\Barcode();
-// generate a barcode
-$bobj = $barcode->getBarcodeObj(
-    'QRCODE,H',                     // barcode type and additional comma-separated parameters
-    'https://rsudarifinachmad.riau.go.id',          // data string to encode
-    -4,                             // bar width (use absolute or negative value as multiplication factor)
-    -4,                             // bar height (use absolute or negative value as multiplication factor)
-    'black',                        // foreground color
-    array(-2, -2, -2, -2)           // padding (use absolute or negative values as multiplication factors)
-)->setBackgroundColor('white')
-    ->setSize(270, 270); // background color
+/* @var $this yii\web\View */
+/* @var $model app\models\Absensi\MasterAbsensi */
 
-// output the barcode as HTML div (see other output formats in the documentation and examples)
-
+$this->title = 'Dashboard Absensi';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
     /* .mcu-spesialis-audiometri-form {
@@ -104,6 +92,33 @@ $bobj = $barcode->getBarcodeObj(
 
 <?php Pjax::begin(['id' => 'pjax-absensi']); ?>
 <div class="row">
+    <div class="col-sm-8">
+        <div class="card m-b-20 card-body">
+            <h4 class="card-title text-center">Waktu Sekarang</h4>
+            <h1 class="card-text text-center text-success">PUKUL <?= date('H:i:s') ?> WIB</h1>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card m-b-20 card-body">
+            <h4 class="card-title text-center">Ambil Absen</h4>
+            <p></p>
+            <div class="card-text">
+                <?php
+                $absen = MasterAbsensi::find()
+                    ->where(["tanggal_masuk" => date("Y-m-d")])
+                    ->andWhere(['nip_nik' => Yii::$app->user->identity])
+                    ->one();
+                ?>
+                <?php if (is_null($absen)) { ?>
+                    <a href="javascript:void(0);" id="save-data-absen" onclick="save(this)" data-value="<?= Yii::$app->user->identity->kodeAkun ?>" class="btn btn-trans btn-block btn-success btn-rounded ">Klik Untuk Ambil Absensi Masuk</a>
+                <?php } else if (is_null($absen->jam_keluar)) { ?>
+                    <a href="javascript:void(0);" id="save-data-absen" onclick="save(this)" data-value="<?= Yii::$app->user->identity->kodeAkun ?>" class="btn btn-trans btn-block btn-primary btn-rounded ">Klik Untuk Ambil Absensi Pulang</a>
+                <?php } else { ?>
+                    <h4>Sampai Jumpa Besok Hari , Selamat Beristirahat</h4>
+                <?php  } ?>
+            </div>
+        </div>
+    </div>
     <div class="col-xl-4">
         <div class="card-box">
             <div class="dropdown pull-right">
@@ -125,46 +140,22 @@ $bobj = $barcode->getBarcodeObj(
             <h4 class="header-title mt-0 m-b-30">Lima Urutan Absen Terakhir</h4>
 
             <div class="inbox-widget nicescroll" style="height: 315px;">
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Wahid Admin , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Anas Kayrunas , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Dicky Ermawan , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Khairul Anwar , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Ahmad Fauzi Rahman , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
+
+                <?php if (count($absenHarini) >  0) { ?>
+                    <?php foreach ($absenHarini as $itemAbsen) { ?>
+                        <a href="#">
+                            <div class="inbox-item">
+                                <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
+                                <p class="inbox-item-author"><?= $itemAbsen->pegawai->nama_lengkap ?></p>
+                                <p class="inbox-item-text"><?= $itemAbsen->how ?></p>
+                                <p class="inbox-item-date"><?= $itemAbsen->jam_masuk ?> WIB</p>
+                            </div>
+                        </a>
+                    <?php  } ?>
+                <?php } else { ?>
+                <?php } ?>
+
+
             </div>
         </div>
     </div>
@@ -195,21 +186,25 @@ $bobj = $barcode->getBarcodeObj(
                             <th>#</th>
                             <th>Hari & Tanggal</th>
                             <th>Nama</th>
-                            <th>Jam Masuk [Lokasi]</th>
-                            <th>Jam Pulang [Lokasi]</th>
+                            <th style="text-align: center;">Jam Masuk [Lokasi]</th>
+                            <th style="text-align: center;">Jam Pulang [Lokasi]</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for ($i = 0; $i <= 30; $i++) { ?>
+                        <?php
+                        $no = 1;
+                        foreach ($absenHarini as $list_absen) { ?>
                             <tr>
-                                <td><?= $i ?></td>
-                                <td>Senin , 16 November 2020</td>
-                                <td>Wahid Admin ,ST</td>
-                                <td>07:30:00 WIB</td>
-                                <td><span class="badge badge-success">Tepat Waktu</span></td>
+                                <td><?= $no ?></td>
+                                <td><?= date('D', strtotime($list_absen->tanggal_masuk)) . " , " . date('d-m-Y',strtotime($list_absen->tanggal_masuk)) ?></td>
+                                <td><?= $list_absen->pegawai->nama_lengkap ?></td>
+                                <td style="text-align: center;"><?= $list_absen->jam_masuk ?> WIB <br><span class="badge badge-success">Tepat Waktu</span></td>
+                                <td style="text-align: center;"><?= $list_absen->jam_keluar ?> WIB</td>
                             </tr>
 
-                        <?php } ?>
+                        <?php
+                            $no++;
+                        } ?>
                     </tbody>
                 </table>
             </div>
@@ -218,3 +213,4 @@ $bobj = $barcode->getBarcodeObj(
 </div>
 <?php Pjax::end(); ?>
 
+<?php $this->registerJs($this->render('absensi-fun.js'), View::POS_END) ?>

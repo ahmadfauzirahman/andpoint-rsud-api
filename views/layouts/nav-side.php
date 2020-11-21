@@ -56,3 +56,8 @@ use yii\helpers\Url;
         <li><a href="ui-widgets.html">Widgets</a></li>
     </ul>
 </li>
+<li class="text-muted menu-title">Laporan</li>
+
+<li>
+    <a href="<?= Url::to(['/laporan/index']) ?>" class="waves-effect"><i class="dripicons-checklist"></i> <span>Laporan Absensi </span> </a>
+</li>
