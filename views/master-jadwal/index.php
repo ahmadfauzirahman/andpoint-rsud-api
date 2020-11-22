@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
 
                 [
-                    'attribute' => 'nama_unit',
+                    'attribute' => 'kode_unit_kerja',
                     'value' => function ($model) {
                         return $model->unit->nama;
                     }

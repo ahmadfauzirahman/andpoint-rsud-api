@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </style>
 
-<?php Pjax::begin(['id' => 'pjax-absensi']); ?>
+<?php Pjax::begin(['id' => 'pjax-absensi']); ?> 
 <div class="row">
     <div class="col-sm-8">
         <div class="card m-b-20 card-body">

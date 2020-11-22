@@ -11,3 +11,6 @@ use yii\helpers\Url;
 <li>
     <a href="<?= Url::to(['/master-absensi/dashboard-ambil-absen']) ?>" class="waves-effect"><i class="mdi mdi-clock"></i> <span> Dashboard Absensi </span> </a>
 </li>
+<li>
+    <a href="<?= Url::to(['/master-absensi/barcode-absensi']) ?>" class="waves-effect"><i class="mdi mdi-qrcode"></i> <span> Barcode Absensi </span> </a>
+</li>

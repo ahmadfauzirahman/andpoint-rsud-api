@@ -105,14 +105,17 @@ class MasterAbsensiController extends Controller
             ->where(['tanggal_masuk' => date("Y-m-d")])
             ->orderBy('tanggal_masuk DESC')
             ->all();
-            // var_dump(is_array($absen));
-            // exit();
         return $this->render(
             'ambil-absen',
             [
                 'absenHarini' => $absen
             ]
         );
+    }
+
+    public function actionBarcodeAbsensi()
+    {
+        return $this->render('barcode');
     }
 
     // save absen 

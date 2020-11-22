@@ -35,7 +35,6 @@ AppAsset::register($this);
         h5,
         h6,
         p,
-        span,
         a {
             font-family: 'Quicksand', sans-serif !important;
         }
@@ -58,7 +57,7 @@ AppAsset::register($this);
 
             <!-- LOGO -->
             <div class="topbar-left" style="font-family: 'Quicksand', sans-serif !important;">
-                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>PRES<span>ENSI</span></span><i class="mdi mdi-layers"></i></a></b>
+                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>MIRAI <span>ABSENSI</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->

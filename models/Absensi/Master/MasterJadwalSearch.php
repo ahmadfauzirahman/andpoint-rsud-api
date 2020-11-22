@@ -20,7 +20,7 @@ class MasterJadwalSearch extends MasterJadwal
     {
         return [
             [['id_jadwal'], 'integer'],
-            [['senin_rabu_masuk', 'kamis', 'nama_unit', 'jumat', 'status_pegawai', 'status_jadwal'], 'safe'],
+            [['senin_rabu_masuk', 'kamis', 'nama_unit', 'jumat', 'status_pegawai', 'status_jadwal','kode_unit_kerja'], 'safe'],
         ];
     }
 
@@ -64,7 +64,7 @@ class MasterJadwalSearch extends MasterJadwal
             'senin_rabu_masuk' => $this->senin_rabu_masuk,
             'kamis' => $this->kamis,
             'jumat' => $this->jumat,
-            'unit.nama' => $this->nama_unit
+            'kode_unit_kerja' => $this->nama_unit
         ]);
 
         $query->andFilterWhere(['ilike', 'status_pegawai', $this->status_pegawai]);
