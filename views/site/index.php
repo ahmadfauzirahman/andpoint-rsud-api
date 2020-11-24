@@ -2,6 +2,9 @@
 
 /* @var $this yii\web\View */
 
+use app\components\Helper;
+use app\models\Absensi\MasterAbsensi;
+use app\models\Kepegawaian\MasterPegawai;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\Pjax;
@@ -21,87 +24,25 @@ $bobj = $barcode->getBarcodeObj(
 )->setBackgroundColor('white')
     ->setSize(270, 270); // background color
 
-// output the barcode as HTML div (see other output formats in the documentation and examples)
-
+$allTerbaru = MasterAbsensi::find()
+    ->select(
+        [
+            "" . MasterPegawai::tableName() . ".*",
+            "" . MasterAbsensi::tableName() . ".*"
+        ]
+    )
+    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.nip_nik = ' . MasterPegawai::tableName() . '.id_nip_nrp')
+    ->orderBy('tanggal_masuk DESC')->asArray()->all();
+$limit5 = MasterAbsensi::find()
+    ->select(
+        [
+            "" . MasterPegawai::tableName() . ".*",
+            "" . MasterAbsensi::tableName() . ".*"
+        ]
+    )
+    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.nip_nik = ' . MasterPegawai::tableName() . '.id_nip_nrp')
+    ->orderBy('tanggal_masuk DESC')->limit(5)->asArray()->all();
 ?>
-<style type="text/css">
-    /* .mcu-spesialis-audiometri-form {
-        font-size: 10px;
-    } */
-
-    table {
-        /* border-collapse: collapse; */
-        font-size: 12px;
-    }
-
-    table td {
-        padding: 4.800;
-    }
-
-    /* 
-    .form-group {
-        margin-bottom: 0px !important;
-    }
-
-    .tabel-tht label {
-        margin-bottom: 0px !important;
-    } */
-
-
-    .tbl-mata tr th,
-    .tbl-mata tr.td-garis td {
-        border: 1px solid #000000;
-        vertical-align: top;
-    }
-
-    .tbl-mata tr td {
-        vertical-align: top;
-    }
-
-    .tabel-penata tr th,
-    .tabel-penata tr td {
-        border: 1px solid #000000;
-        vertical-align: top;
-    }
-
-    /* .tbl-gigi .angka-gigi {
-        text-align: center;
-    } */
-
-    /* .tbl-oklusi tr td.col-1 {
-        width: 35%;
-        border-left: 1px solid #000000;
-        border-bottom: 1px solid #000000;
-    }
-
-    .tbl-oklusi tr td.col-2 {
-        width: 1%;
-        text-align: left;
-        border-bottom: 1px solid #000000;
-    }
-
-    .tbl-oklusi tr td.col-3 {
-        width: 64%;
-        text-align: left !important;
-        border-bottom: 1px solid #000000;
-        border-right: 1px solid #000000;
-    } */
-
-    .tbl-ttd tr td.col-1 {
-        border-left: 1px solid #000000;
-        border-bottom: 1px solid #000000;
-    }
-
-    .tbl-ttd tr td.col-2 {
-        border-bottom: 1px solid #000000;
-    }
-
-    .tbl-ttd tr td.col-3 {
-        border-bottom: 1px solid #000000;
-        border-right: 1px solid #000000;
-    }
-</style>
-
 <?php Pjax::begin(['id' => 'pjax-absensi']); ?>
 <div class="row">
     <div class="col-xl-4">
@@ -125,46 +66,16 @@ $bobj = $barcode->getBarcodeObj(
             <h4 class="header-title mt-0 m-b-30">Lima Urutan Absen Terakhir</h4>
 
             <div class="inbox-widget nicescroll" style="height: 315px;">
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Wahid Admin , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Anas Kayrunas , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Dicky Ermawan , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Khairul Anwar , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="inbox-item">
-                        <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
-                        <p class="inbox-item-author">Ahmad Fauzi Rahman , ST</p>
-                        <p class="inbox-item-text">Tepat Waktu</p>
-                        <p class="inbox-item-date">21:30 PM</p>
-                    </div>
-                </a>
+                <?php foreach ($limit5 as  $item) { ?>
+                    <a href="#">
+                        <div class="inbox-item">
+                            <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
+                            <p class="inbox-item-author"><?= $item['nama_lengkap'] ?></p>
+                            <p class="inbox-item-text">Tepat Waktu</p>
+                            <p class="inbox-item-date"><?= $item['jam_masuk'] ?> WIB</p>
+                        </div>
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -200,14 +111,16 @@ $bobj = $barcode->getBarcodeObj(
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for ($i = 0; $i <= 30; $i++) { ?>
+                        <?php $no = 1; ?>
+                        <?php foreach ($allTerbaru as $s) { ?>
                             <tr>
-                                <td><?= $i ?></td>
-                                <td>Senin , 16 November 2020</td>
-                                <td>Wahid Admin ,ST</td>
-                                <td>07:30:00 WIB</td>
-                                <td><span class="badge badge-success">Tepat Waktu</span></td>
+                                <td><?= $no ?></td>
+                                <td><?= Helper::hari_ini(date('D', strtotime($s['tanggal_masuk']))) .  " , " .  Helper::tgl_indo($s['tanggal_masuk']) ?></td>
+                                <td><?= $s['nama_lengkap'] ?></td>
+                                <td><?= $s['jam_masuk'] . " WIB" ?> </td>
+                                <td><?= $s['jam_keluar'] . " WIB" ?> </td>
                             </tr>
+                            <?php $no++; ?>
 
                         <?php } ?>
                     </tbody>
@@ -218,3 +131,5 @@ $bobj = $barcode->getBarcodeObj(
 </div>
 <?php Pjax::end(); ?>
 
+
+<?php $this->registerJs($this->render('dashboard.js'), View::POS_END) ?>

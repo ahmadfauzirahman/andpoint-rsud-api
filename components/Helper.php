@@ -127,4 +127,10 @@ class Helper
         $master = MasterUnitPenempatan::find()->orderBy('nama DESC')->all();
         return $master;
     }
+
+
+    static function GetIdentitasPegawai($nip)
+    {
+        
+    }
 }

@@ -30,7 +30,7 @@ class MasterPegawaiController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'profile-saya'],
+                        'actions' => ['logout', 'index', 'profile-saya','view'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

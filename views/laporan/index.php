@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Absensi\MasterAbsensi;
+use app\models\Kepegawaian\MasterPegawai;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -50,16 +52,22 @@ $tanggal = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
                             <?php }
                             ?>
                         </tr>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>AHMAD FAUZI RAHMAN</td>
-                                <td>XI</td>
-                                <td>XI</td>
-                                <td>XI</td>
-                                <td>XI</td>
-                                <td>XI</td>
-                            </tr>
+                        <tbody style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000">
+                            <?php $no = 1; ?>
+                            <?php foreach (MasterAbsensi::find()->orderBy('tanggal_masuk DESC')->all() as $id) { ?>
+                                <tr>
+                                    <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"><?= $no ?></td>
+                                    <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"><?= MasterPegawai::findOne(['id_nip_nrp' => $id->nip_nik])->nama_lengkap ?></td>
+                                    <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000">-</td>
+                                    <?php for ($i = 1; $i < $tanggal; $i++) { ?>
+                                        <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000">07:30:00 WIB</td>
+                                        <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"><b>V</b></td>
+                                        <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000">14:30:00 WIB</td>
+                                        <td style="text-align: center;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"><b>V</b></td>
+                                    <?php } ?>
+                                </tr>
+                                <?php $no++; ?>
+                            <?php } ?>
                         </tbody>
 
                     </table>

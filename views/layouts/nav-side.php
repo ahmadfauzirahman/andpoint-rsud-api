@@ -8,7 +8,12 @@ use yii\helpers\Url;
 <li>
     <a href="<?= Url::to(['/site/index']) ?>" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
 </li>
-
+<li>
+    <a href="<?= Url::to(['/site/maps']) ?>" class="waves-effect"><i class="mdi mdi-google-maps"></i> <span> Tracking </span> </a>
+</li>
+<li>
+    <a href="<?= Url::to(['/master-absensi/barcode-absensi']) ?>" class="waves-effect"><i class="mdi mdi-qrcode"></i> <span> Barcode Absensi </span> </a>
+</li>
 <li class="text-muted menu-title" style="display: none;">Kepagawaian Modul</li>
 <li style="display: none;">
     <a href="<?= Url::to(['/master-pegawai/index']) ?>" class="waves-effect"><i class="dripicons-user-group"></i> <span> Pegawai </span> </a>
