@@ -57,7 +57,7 @@ AppAsset::register($this);
 
             <!-- LOGO -->
             <div class="topbar-left" style="font-family: 'Quicksand', sans-serif !important;">
-                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>MIRAI <span>ABSENSI</span></span><i class="mdi mdi-layers"></i></a></b>
+                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>MIRAI <span>HRM</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
