@@ -56,14 +56,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'jenis_kepegawaian_id')->textInput() ?>
 
-    <?= $form->field($model, 'nomor_karpeg')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nomor_kartu_askes')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nomor_kartu_taspen')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nomor_karis_karsu')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'npwp')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nomor_ktp')->textInput(['maxlength' => true]) ?>
@@ -82,10 +74,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tmt_cpns')->textInput() ?>
 
-    <?= $form->field($model, 'masa_kerja_tahun_cpns')->textInput() ?>
-
-    <?= $form->field($model, 'masa_kerja_bulan_cpns')->textInput() ?>
-
     <?= $form->field($model, 'pejabat_yang_menetapkan_pns')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'sk_nomor_pns')->textInput(['maxlength' => true]) ?>
@@ -97,10 +85,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'tmt_pns')->textInput() ?>
 
     <?= $form->field($model, 'sumpah_janji_pns')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'masa_kerja_tahun_pns')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'masa_kerja_bulan_pns')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tinggi_keterangan_badan')->textInput() ?>
 
@@ -126,13 +110,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status_aktif_pegawai')->textInput() ?>
 
-    <?= $form->field($model, 'kode_kategori_pegawai')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kode_jenis_kepegawaian_rl4')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'masa_kerja_honorer')->textInput() ?>
-
     <?= $form->field($model, 'tipe_user')->textInput() ?>
+
+    <?= $form->field($model, 'kode_dokter_maping_simrs')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

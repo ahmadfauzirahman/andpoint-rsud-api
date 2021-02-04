@@ -4,12 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Kepegawaian\MasterPegawai;
-use app\models\Kepegawaian\MasterRiwayatPenempatan;
-use app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch;
+use app\models\Kepegawaian\ModelSearch\MasterPegawai as MasterPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
  * MasterPegawaiController implements the CRUD actions for MasterPegawai model.
@@ -22,28 +20,15 @@ class MasterPegawaiController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index', 'profile-saya','view'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
+
     /**
      * Lists all MasterPegawai models.
      * @return mixed
@@ -122,22 +107,6 @@ class MasterPegawaiController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-
-    public function actionProfileSaya()
-    {
-        $penempatan = MasterRiwayatPenempatan::find()
-            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
-            ->orderBy('tanggal DESC')->limit(1)->one();
-
-        $modelPegawai = MasterPegawai::find()
-            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
-            ->one();
-        return $this->render('profile-saya', [
-            'model' => $penempatan,
-            'modelPegawai' => $modelPegawai
-        ]);
     }
 
     /**

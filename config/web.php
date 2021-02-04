@@ -45,8 +45,8 @@ $config = [
             'class' => 'app\models\User',
             'identityClass' => 'app\models\Identitas',
             'enableAutoLogin' => true,
-            'loginUrl' => '@.sso/masuk?b=http://presensi.rsud-arifin.localhost',
-            'identityCookie' => ['name' => '_identity-id', 'httpOnly' => true, 'domain' => 'rsud-arifin.localhost'],
+            'loginUrl' => '@.sso/masuk?b=http://presensi.rsud-arifin.apps',
+            'identityCookie' => ['name' => '_identity-id', 'httpOnly' => true, 'domain' => 'rsud-arifin.apps'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

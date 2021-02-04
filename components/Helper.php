@@ -2,7 +2,9 @@
 
 namespace app\components;
 
+use app\models\Absensi\MasterAbsensi;
 use app\models\Kepegawaian\Master\MasterUnitPenempatan;
+use app\models\Kepegawaian\MasterPegawai;
 
 class Helper
 {
@@ -41,6 +43,8 @@ class Helper
                 break;
         }
     }
+
+    // static function GetData
 
     static function tgl_indo($tanggal)
     {
@@ -131,6 +135,95 @@ class Helper
 
     static function GetIdentitasPegawai($nip)
     {
-        
+        $models = MasterPegawai::findOne(['id_nip_nrp' => $nip]);
+        return $models;
+    }
+
+    static function HitungHariKerja($nip)
+    {
+        $hariKerja = MasterAbsensi::find()->where(['nip_nik' => $nip])
+            ->andWhere(['BETWEEN', 'tanggal_masuk', '2021-01-04', '2021-01-30'])
+            ->all();
+
+        $jumlahHariKerja = count($hariKerja);
+        return $jumlahHariKerja;
+    }
+
+    static function menghitung_selisih($waktu_awal, $waktu_akhir)
+    {
+        $awl = strtotime($waktu_awal);
+        $akh = strtotime($waktu_akhir); // bisa juga waktu sekarang now()
+        //menghitung selisih dengan hasil detik
+        $diff = $awl - $akh;
+
+        //membagi detik menjadi jam
+        $jam = floor($diff / (60 * 60));
+
+        //membagi sisa detik setelah dikurangi $jam menjadi menit
+        $menit = $diff - $jam * (60 * 60);
+
+        return $jam . " Jam dan " . floor($menit / 60) . " Menit";
+    }
+
+    static function menghitung_jumlah_ovt($waktu_jam_pulang, $waktu_normal)
+    {
+        $awl = strtotime($waktu_jam_pulang);
+        $akh = strtotime($waktu_normal); // bisa juga waktu sekarang now()
+        //menghitung selisih dengan hasil detik
+        $diff = $awl - $akh;
+
+        //membagi detik menjadi jam
+        $jam = floor($diff / (60 * 60));
+
+        //membagi sisa detik setelah dikurangi $jam menjadi menit
+        $menit = $diff - $jam * (60 * 60);
+
+        if ($jam == 0) {
+            return floor($menit / 60);
+        } else {
+
+            return $jam . " Jam dan " . floor($menit / 60) . " Menit";
+        }
+    }
+
+    static function menghitung_jumlah_cpt_pulang($waktu_jam_pulang, $waktu_normal)
+    {
+        $awl = strtotime($waktu_normal);
+        $akh = strtotime($waktu_jam_pulang); // bisa juga waktu sekarang now()
+        //menghitung selisih dengan hasil detik
+        $diff = $awl - $akh;
+
+        //membagi detik menjadi jam
+        $jam = floor($diff / (60 * 60));
+
+        //membagi sisa detik setelah dikurangi $jam menjadi menit
+        $menit = $diff - $jam * (60 * 60);
+
+        if ($jam == -1) {
+            return floor($menit / 60);
+        } else {
+
+            return  floor($menit / 60);
+        }
+    }
+
+    static function menghitung_jumlah_tlt_datang($tanggal_masuk, $waktu_normal, $waktu_jam_pulang)
+    {
+
+        $waktuawal  = date_create($tanggal_masuk . " " . $waktu_normal); //waktu di setting
+
+        $waktuakhir = date_create($tanggal_masuk . " " . $waktu_jam_pulang); //2019-02-21 09:35 waktu sekarang
+
+        $diff  = date_diff($waktuawal, $waktuakhir);
+
+        return $diff->i;
+        // $awal  = strtotime($tanggal_masuk . $waktu_normal);
+        // $akhir = strtotime($tanggal_masuk . $waktu_jam_pulang);
+        // $diff  = $akhir - $awal;
+
+        // $jam   = floor($diff / (60 * 60));
+        // $menit = $diff - $jam * (60 * 60);
+
+        // return $menit;
     }
 }

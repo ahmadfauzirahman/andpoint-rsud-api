@@ -29,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','maps'],
+                        'actions' => ['logout', 'index', 'maps'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -73,10 +73,13 @@ class SiteController extends Controller
         $penempatan = MasterRiwayatPenempatan::find()
             ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
             ->orderBy('tanggal DESC')->limit(1)->one();
-        if (Yii::$app->user->identity->roles == 'NONMEDIS' || Yii::$app->user->identity->roles == 'MEDIS') {
-            return $this->redirect(['/master-pegawai/profile-saya']);
-        }
-        
+        // if (
+        //     Yii::$app->user->identity->roles == 'NONMEDIS'
+        //     || Yii::$app->user->identity->roles == 'MEDIS'
+        // ) {
+        //     return $this->redirect(['/master-pegawai/profile-saya']);
+        // }
+
         // var_dump($limit5['nama_lengkap']);
         // exit;
 

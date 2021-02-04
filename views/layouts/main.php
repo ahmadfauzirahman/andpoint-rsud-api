@@ -24,21 +24,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        body,
-        html,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        a {
-            font-family: 'Quicksand', sans-serif !important;
-        }
-    </style>
+
     <script>
         const baseUrl = '<?= Yii::$app->homeUrl ?>';
     </script>
@@ -57,7 +43,7 @@ AppAsset::register($this);
 
             <!-- LOGO -->
             <div class="topbar-left" style="font-family: 'Quicksand', sans-serif !important;">
-                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>MIRAI <span>HRM</span></span><i class="mdi mdi-layers"></i></a></b>
+                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>M <span>SIMPERSA</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch */
+/* @var $model app\models\Kepegawaian\ModelSearch\MasterPegawai */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -64,14 +64,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'jenis_kepegawaian_id') ?>
 
-    <?php // echo $form->field($model, 'nomor_karpeg') ?>
-
-    <?php // echo $form->field($model, 'nomor_kartu_askes') ?>
-
-    <?php // echo $form->field($model, 'nomor_kartu_taspen') ?>
-
-    <?php // echo $form->field($model, 'nomor_karis_karsu') ?>
-
     <?php // echo $form->field($model, 'npwp') ?>
 
     <?php // echo $form->field($model, 'nomor_ktp') ?>
@@ -90,10 +82,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'tmt_cpns') ?>
 
-    <?php // echo $form->field($model, 'masa_kerja_tahun_cpns') ?>
-
-    <?php // echo $form->field($model, 'masa_kerja_bulan_cpns') ?>
-
     <?php // echo $form->field($model, 'pejabat_yang_menetapkan_pns') ?>
 
     <?php // echo $form->field($model, 'sk_nomor_pns') ?>
@@ -105,10 +93,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'tmt_pns') ?>
 
     <?php // echo $form->field($model, 'sumpah_janji_pns') ?>
-
-    <?php // echo $form->field($model, 'masa_kerja_tahun_pns') ?>
-
-    <?php // echo $form->field($model, 'masa_kerja_bulan_pns') ?>
 
     <?php // echo $form->field($model, 'tinggi_keterangan_badan') ?>
 
@@ -134,13 +118,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'status_aktif_pegawai') ?>
 
-    <?php // echo $form->field($model, 'kode_kategori_pegawai') ?>
-
-    <?php // echo $form->field($model, 'kode_jenis_kepegawaian_rl4') ?>
-
-    <?php // echo $form->field($model, 'masa_kerja_honorer') ?>
-
     <?php // echo $form->field($model, 'tipe_user') ?>
+
+    <?php // echo $form->field($model, 'kode_dokter_maping_simrs') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

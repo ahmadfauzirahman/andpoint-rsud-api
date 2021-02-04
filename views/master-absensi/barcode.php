@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'QRCODE Abensi';
+$this->title = 'QRCODE ABSENSI';
 $this->params['breadcrumbs'][] = $this->title;
 $barcode = new \Com\Tecnick\Barcode\Barcode();
 

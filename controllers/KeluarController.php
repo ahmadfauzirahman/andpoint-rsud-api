@@ -37,7 +37,7 @@ class KeluarController extends Controller
 
     public function actionIndex()
     {
-        $sesi = Yii::$app->user->identity->getSesi();
+        $sesi = Yii::$app->user->identity->sesi;
 
         if ($sesi->keluar()) {
             Yii::$app->user->logout(true);

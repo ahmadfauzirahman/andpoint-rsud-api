@@ -31,8 +31,9 @@ $allTerbaru = MasterAbsensi::find()
             "" . MasterAbsensi::tableName() . ".*"
         ]
     )
-    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.nip_nik = ' . MasterPegawai::tableName() . '.id_nip_nrp')
-    ->orderBy('tanggal_masuk DESC')->asArray()->all();
+    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.id_pegawai::varchar = ' . MasterPegawai::tableName() . '.pegawai_id::varchar')
+    ->where(['tanggal_masuk' => date("Y-m-d")])
+    ->orderBy('id_tb_absensi DESC')->asArray()->all();
 $limit5 = MasterAbsensi::find()
     ->select(
         [
@@ -40,8 +41,9 @@ $limit5 = MasterAbsensi::find()
             "" . MasterAbsensi::tableName() . ".*"
         ]
     )
-    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.nip_nik = ' . MasterPegawai::tableName() . '.id_nip_nrp')
-    ->orderBy('tanggal_masuk DESC')->limit(5)->asArray()->all();
+    ->leftJoin(MasterPegawai::tableName(), '' . MasterAbsensi::tableName() . '.id_pegawai::varchar = ' . MasterPegawai::tableName() . '.pegawai_id::varchar')
+    ->where(['tanggal_masuk' => date("Y-m-d")])
+    ->orderBy('id_tb_absensi DESC')->limit(5)->asArray()->all();
 ?>
 <?php Pjax::begin(['id' => 'pjax-absensi']); ?>
 <div class="row">
@@ -63,7 +65,7 @@ $limit5 = MasterAbsensi::find()
                 </div>
             </div>
 
-            <h4 class="header-title mt-0 m-b-30">Lima Urutan Absen Terakhir</h4>
+            <h4 class="header-title mt-0 m-b-30">Lima Urutan Absensi Terakhir</h4>
 
             <div class="inbox-widget nicescroll" style="height: 315px;">
                 <?php foreach ($limit5 as  $item) { ?>
@@ -71,7 +73,7 @@ $limit5 = MasterAbsensi::find()
                         <div class="inbox-item">
                             <div class="inbox-item-img"><img src="<?= Url::to('@web/img/user.png') ?>" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><?= $item['nama_lengkap'] ?></p>
-                            <p class="inbox-item-text">Tepat Waktu</p>
+                            <p class="inbox-item-text">Hadir</p>
                             <p class="inbox-item-date"><?= $item['jam_masuk'] ?> WIB</p>
                         </div>
                     </a>

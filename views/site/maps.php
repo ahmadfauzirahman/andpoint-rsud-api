@@ -39,12 +39,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                     var officeLocations = [
-                        <?php foreach (MasterAbsensi::find()->orderBy('tanggal_masuk DESC')->all() as $item) { ?>[<?= $item->nip_nik ?>, '<?= MasterPegawai::findOne(['id_nip_nrp' => $item->nip_nik])->nama_lengkap ?>', '<?= $item->how ?>', <?= $item->long ?>, <?= $item->lat ?>],
+                        <?php foreach (MasterAbsensi::find()->where(['tanggal_masuk' => date("Y-m-d")])->orderBy('tanggal_masuk DESC')->all() as $item) {
+                             $d = MasterPegawai::findOne(['id_nip_nrp' => $item->nip_nik]);
+                             if($d == false){
+                                 $d = MasterPegawai::findOne(['nomor_ktp' => $item->nip_nik]);
+                             } ?>[<?= $item->nip_nik ?>, '<?= $d->nama_lengkap ?>', '<?= $item->how ?>', <?= $item->long ?>, <?= $item->lat ?>],
                         <?php } ?>
                     ];
 
                     function setMarkers(map, locations) {
-                        var globalPin = 'http://presensi.rsud-arifin.localhost/img/hospital.png';
+                        var globalPin = 'http://presensi.simrs.aa/img/marker.png';
 
                         for (var i = 0; i < locations.length; i++) {
 
@@ -68,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 position: myLatLng,
                                 map: map,
                                 title: office[1],
-                                icon: 'http://presensi.rsud-arifin.localhost/img/marker.png'
+                                icon: 'http://presensi.simrs.aa/img/marker.png'
                             });
 
                             google.maps.event.addListener(marker, 'click', getInfoCallback(map, contentString));
