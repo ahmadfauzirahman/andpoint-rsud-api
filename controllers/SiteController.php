@@ -10,8 +10,10 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\JadwalSift;
 use app\models\Kepegawaian\MasterPegawai;
 use app\models\Kepegawaian\MasterRiwayatPenempatan;
+use app\widgets\App;
 
 class SiteController extends Controller
 {
@@ -29,7 +31,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'maps'],
+                        'actions' => ['logout', 'index', 'maps', 'buat-jadwal-sift'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,6 +71,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
+        if (App::isRoot() == false) {
+            return $this->redirect("http://sso.simrs.aa/");
+        }
         // echo '<pre>';
         $penempatan = MasterRiwayatPenempatan::find()
             ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
@@ -155,5 +160,15 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionBuatJadwalSift()
+    {
+        $model = new JadwalSift();
+        $modelAbsensi = new MasterPegawai();
+        return $this->render('buat-jadwal-sift', [
+            'model' => $model,
+            'modelAbsensi' => $modelAbsensi
+        ]);
     }
 }

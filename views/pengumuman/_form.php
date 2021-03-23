@@ -1,40 +1,41 @@
 <?php
 
-use mihaildev\ckeditor\CKEditor;
+// use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use kartik\select2\Select2;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengumuman */
 /* @var $form yii\bootstrap4\ActiveForm */
 ?>
-
+<div class="row">
+            <div class="col-lg-12">
+                <div class="card card-body">
+				
 <div class="pengumuman-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'to')->textInput(['placeholder' => 'Ditunjukan Kepada']) ?>
+	<?php $unit = file_get_contents(Url::to(['pengumuman/get-unit-penempatan'], true)); ?>
+	<?php //$debitur = '{"1012":"Umum","1210":"BPJS Kesehatan","1211":"BPJS Ketenagakerjaan","1410":"Inhealth","1110":"Pekanbaru - Jamkesda","1111":"Kuansing - Jamkesda","1112":"Rokan Hilir - Jamkesda","1113":"Indragiri Hulu - Jamkesda"}'; ?>
+
+	<?= $form->field($model, 'to')->widget(Select2::className(), [
+		// 'data' => ArrayHelper::map($dokter, 'KODE', 'NAMA'),
+		// 'data' => ["123"=>"asds", "21312"=>"zxcv"],
+		'data' => json_decode($unit),
+		'options' => [
+			'placeholder' => "-Seluruh Unit-",
+			$model->isNewRecord ? ['class' => 'form-control unit', 'placeholder' => ''] : ['class' => 'form-control']
+			]
+	]);
+	?>
     <?= $form->field($model, 'title')->textarea(['rows' => 1, 'placeholder' => 'Judul Pengumuman']) ?>
     <?php $form->field($model, 'kategori')->textInput() ?>
 
-    <?= $form->field($model, 'isi')->widget(CKEditor::className(), [
-        'editorOptions' => [
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'inline' => false, //по умолчанию false
-        ],
-    ]) ?>
+	<?= $form->field($model, 'isi')->widget(\yii\redactor\widgets\Redactor::className()) ?>
 
-    <label for="">File <code>Jika Ada</code></label>
-    <?php
-    $data = isset($model->file) ? [
-        'pluginOptions' => [
-            'initialPreview' => Yii::$app->request->baseUrl . '/web/file/' . $model->file,
-            'initialPreviewAsData' => true,
-            'initialCaption' => $model->id_pengumuman,
-        ],
-    ] : [];
-    ?>
-    <?= $form->field($model, 'file')->widget(\kartik\file\FileInput::className(), $data)->label(false) ?>
     <?php $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
 
     <?php $form->field($model, 'created_at')->textInput() ?>
@@ -54,3 +55,6 @@ use yii\bootstrap4\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+	</div>
+	</div>
+	</div>

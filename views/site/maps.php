@@ -40,10 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     var officeLocations = [
                         <?php foreach (MasterAbsensi::find()->where(['tanggal_masuk' => date("Y-m-d")])->orderBy('tanggal_masuk DESC')->all() as $item) {
-                             $d = MasterPegawai::findOne(['id_nip_nrp' => $item->nip_nik]);
-                             if($d == false){
-                                 $d = MasterPegawai::findOne(['nomor_ktp' => $item->nip_nik]);
-                             } ?>[<?= $item->nip_nik ?>, '<?= $d->nama_lengkap ?>', '<?= $item->how ?>', <?= $item->long ?>, <?= $item->lat ?>],
+                             $d = MasterPegawai::findOne(['pegawai_id' => $item->id_pegawai]);
+
+                             ?>[<?= $item->nip_nik ?>, "<?= $d->nama_lengkap ?>", '<?= $item->how ?>', <?= $item->long ?>, <?= $item->lat ?>],
                         <?php } ?>
                     ];
 

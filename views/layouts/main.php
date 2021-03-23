@@ -9,7 +9,6 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
 use app\components\Breadcrumbs as ComponentsBreadcrumbs;
-use app\widgets\App;
 use yii\helpers\Url;
 
 AppAsset::register($this);
@@ -24,10 +23,13 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-
-    <script>
-        const baseUrl = '<?= Yii::$app->homeUrl ?>';
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            font-family: 'Quicksand', sans-serif !important;
+        }
+    </style>
     <?php $this->head() ?>
 </head>
 
@@ -42,8 +44,8 @@ AppAsset::register($this);
         <div class="topbar">
 
             <!-- LOGO -->
-            <div class="topbar-left" style="font-family: 'Quicksand', sans-serif !important;">
-                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>M <span>SIMPERSA</span></span><i class="mdi mdi-layers"></i></a></b>
+            <div class="topbar-left">
+                <b><a style="font-family: 'Quicksand', sans-serif !important" href="<?= Url::to(['/site/index']) ?>" class="logo"><span>Prese<span>nsi</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
@@ -84,7 +86,12 @@ AppAsset::register($this);
                                 <!-- End Notification bar -->
                             </li>
 
-
+                            <li class="hide-phone">
+                                <form class="app-search">
+                                    <input type="text" placeholder="Search..." class="form-control">
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </li>
 
                         </ul>
                     </nav>
@@ -97,11 +104,9 @@ AppAsset::register($this);
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left side-menu">
             <div class="sidebar-inner slimscrollleft">
-                <div class="user-box">
-                    <a href="<?= Url::to(['/keluar/index']) ?>" class="btn btn-danger btn-trans">Logout</a>
-                </div>
+
                 <!-- User -->
-                <div style="display: none;" class="user-box">
+                <div class="user-box">
                     <div class="user-img">
                         <img src="<?= Yii::$app->request->baseUrl ?>/img/user.png" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
                         <div class="user-status offline"><i class="mdi mdi-adjust"></i></div>
@@ -126,11 +131,9 @@ AppAsset::register($this);
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
                     <ul>
-                        <?php if (App::AppIsRoot()) { ?>
-                            <?= $this->render('nav-side.php') ?>
-                        <?php } else { ?>
-                            <?= $this->render('nav-pegawai.php') ?>
-                        <?php } ?>
+
+                        <?= $this->render('nav-side.php') ?>
+
                     </ul>
                     <div class="clearfix"></div>
                 </div>

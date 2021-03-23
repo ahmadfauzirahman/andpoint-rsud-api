@@ -1,5 +1,4 @@
 <?php
-
 namespace app\components;
 
 use app\components\GoogleCalendar;
@@ -10,7 +9,7 @@ class HelperHari
     /**
      * @return array date hari libur nasional
      */
-    public function cekNationalFreeDay($tahun = null, $tanggal = null)
+    public function cekNationalFreeDay()
     {
         $Y = date('Y', strtotime(date('Y')));
         $m = date('m', strtotime(date('m')));
@@ -21,11 +20,6 @@ class HelperHari
             array_push($date, $key);
         }
         return $date;
-    }
-
-    public function checkHariLiburNasional($tahun, $tanggal)
-    {
-        $hari = $this->cekNationalFreeDay($tahun, $tanggal);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 /**
  * This is the model class for table "absensi.tb_pengumuman".
  *
@@ -59,9 +59,14 @@ class Pengumuman extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'update_by' => 'Update By',
             'update_at' => 'Update At',
-            'to' => 'To ( Ditunjukan Untuk Siapa/Instansi ?)',
+            'to' => 'Tujuan Instansi',
             'status' => 'Status',
             'kategori' => 'Kategori',
         ];
     }
+	
+	public function getUnit()
+	{
+		return $this->hasOne(MasterUnitPenempatan::className(), ['kode' => 'to']);
+	}
 }

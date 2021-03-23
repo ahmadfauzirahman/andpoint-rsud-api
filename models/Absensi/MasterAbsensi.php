@@ -36,7 +36,7 @@ class MasterAbsensi extends \yii\db\ActiveRecord
     {
         return [
             [['jam_masuk', 'jam_keluar', 'tanggal_masuk', 'how'], 'safe'],
-            [['id_pegawai', 'status'], 'string', 'max' => 30],
+            [['id_pegawai', 'status'], 'safe'],
             [['nip_nik'], 'string', 'max' => 40],
             [['lat', 'long'], 'string', 'max' => 20],
         ];
@@ -50,7 +50,7 @@ class MasterAbsensi extends \yii\db\ActiveRecord
         return [
             'id_tb_absensi' => 'Id Tb Absensi',
             'id_pegawai' => 'Nama Pegawai',
-            'nip_nik' => 'Nip/Nik',
+            'nip_nik' => 'Identitas User',
             'jam_masuk' => 'Jam Masuk',
             'jam_keluar' => 'Jam Keluar',
             'tanggal_masuk' => 'Tanggal Masuk',
@@ -67,5 +67,5 @@ class MasterAbsensi extends \yii\db\ActiveRecord
 
     public function getUnit()
     {
-        }
+    }
 }

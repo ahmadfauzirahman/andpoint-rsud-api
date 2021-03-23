@@ -83,5 +83,11 @@ use yii\helpers\Url;
     <a href="<?= Url::to(['/master-pegawai/index']) ?>" class="waves-effect"><i class="fa fa-user"></i> <span>Pegawai RSUD</span> </a>
 </li>
 <li>
+    <a href="<?= Url::to(['/order-jadwal/index']) ?>" class="waves-effect"><i class="fa fa-list"></i> <span>Buat Jadwal Sift</span> </a>
+</li>
+<li>
     <a href="<?= Url::to(['/laporan/laporan-rekap']) ?>" class="waves-effect"><i class="dripicons-checklist"></i> <span>Laporan Rekap </span> </a>
+</li>
+<li>
+    <a href="<?= Url::to(['/pengumuman/index']) ?>" class="waves-effect"><i class="fa fa-bullhorn"></i> <span>Pengumuman </span> </a>
 </li>

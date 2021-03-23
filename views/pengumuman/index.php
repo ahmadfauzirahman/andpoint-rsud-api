@@ -29,20 +29,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
 
                 // 'id_pengumuman',
-                'to',
+                // 'to',
+				[
+					'label' => 'Tujuan Instansi',
+					// 'value' => 'unit.nama',
+					'value' => function ($model) {
+                        if (empty($model->to)) {
+                            return  "Seluruh unit";
+                        } else {
+                            return $model->unit->nama;
+                        }
+                    },
+				],
                 'title:ntext',
                 'isi:html',
-                [
-                    'attribute' => 'file',
-                    'format' => 'raw',
-                    'value' =>  function ($model) {
-                        if (empty($model->file)) {
-                            return  "File Tidak Ada";
-                        } else {
-                            return  "<a href='" . Url::To('@web/file-pengumuman/' . $model->file) . "' target='_blank'>Lihat File</a>";
-                        }
-                    }
-                ],
+                // [
+                    // 'attribute' => 'file',
+                    // 'format' => 'raw',
+                    // 'value' =>  function ($model) {
+                        // if (empty($model->file)) {
+                            // return  "File Tidak Ada";
+                        // } else {
+                            // return  "<a href='" . Url::To('@web/file-pengumuman/' . $model->file) . "' target='_blank'>Lihat File</a>";
+                        // }
+                    // }
+                // ],
                 // 'author',
                 //'created_at',
                 //'update_by',

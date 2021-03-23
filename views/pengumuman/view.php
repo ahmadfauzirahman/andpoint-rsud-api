@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Pengumuman', 'url' => ['index']];
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-body">
-                <h1><?= Html::encode($this->title) ?></h1>
 
                 <p>
                     <?= Html::a('Update', ['update', 'id' => $model->id_pengumuman], ['class' => 'btn btn-primary']) ?>
@@ -34,32 +33,43 @@ $this->params['breadcrumbs'][] = ['label' => 'Pengumuman', 'url' => ['index']];
                     'model' => $model,
                     'attributes' => [
                         // 'id_pengumuman',
-                        'to',
+                        // 'unit.nama',
+						[
+							'label' => 'Tujuan Instansi',
+							// 'value' => 'unit.nama',
+							'value' => function ($model) {
+								if (empty($model->to)) {
+									return  "Seluruh unit";
+								} else {
+									return $model->unit->nama;
+								}
+							},
+						],
                         'title:ntext',
                         'isi:html',
-                        [
-                            'attribute' => 'file',
-                            'format' => 'raw',
-                            'value' =>  function ($model) {
-                                if (is_null($model->file)) {
-                                    return  "File Tidak Ada";
-                                } else {
-                                    return  "<a href='" . Url::To('@web/file-pengumuman/' . $model->file) . "' target='_blank'>Lihat File</a>";
-                                }
-                            }
-                        ],
+                        // [
+                            // 'attribute' => 'file',
+                            // 'format' => 'raw',
+                            // 'value' =>  function ($model) {
+                                // if (is_null($model->file)) {
+                                    // return  "File Tidak Ada";
+                                // } else {
+                                    // return  "<a href='" . Url::To('@web/file-pengumuman/' . $model->file) . "' target='_blank'>Lihat File</a>";
+                                // }
+                            // }
+                        // ],
                         // 'author',
                         // 'created_at',
                         // 'update_by',
                         // 'update_at',
                         'status',
-                        [
-                            'format' => 'raw',
-                            'attribute' => 'image_encode',
-                            'value' => function ($model) {
-                                return "<img src='" . $model->image_encode . "'>";
-                            }
-                        ],
+                        // [
+                            // 'format' => 'raw',
+                            // 'attribute' => 'image_encode',
+                            // 'value' => function ($model) {
+                                // return "<img src='" . $model->image_encode . "'>";
+                            // }
+                        // ],
                     ],
                 ]) ?>
 

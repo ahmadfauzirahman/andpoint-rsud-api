@@ -4,6 +4,7 @@ namespace app\components;
 
 use app\models\Absensi\MasterAbsensi;
 use app\models\Kepegawaian\Master\MasterUnitPenempatan;
+use app\models\Kepegawaian\Master\MasterUnitSubPenempatan;
 use app\models\Kepegawaian\MasterPegawai;
 
 class Helper
@@ -128,7 +129,7 @@ class Helper
 
     static function UnitKerja()
     {
-        $master = MasterUnitPenempatan::find()->orderBy('nama DESC')->all();
+        $master = MasterUnitSubPenempatan::find()->orderBy('nama DESC')->all();
         return $master;
     }
 
@@ -207,23 +208,35 @@ class Helper
         }
     }
 
-    static function menghitung_jumlah_tlt_datang($tanggal_masuk, $waktu_normal, $waktu_jam_pulang)
+    static function menghitung_jumlah_tlt_datang($waktu_jam_pulang, $waktu_normal)
     {
+        $awl = strtotime($waktu_jam_pulang);
+        $akh = strtotime($waktu_normal); // bisa juga waktu sekarang now()
+        //menghitung selisih dengan hasil detik
+        $diff = $awl - $akh;
 
-        $waktuawal  = date_create($tanggal_masuk . " " . $waktu_normal); //waktu di setting
+        //membagi detik menjadi jam
+        $jam = floor($diff / (60 * 60));
 
-        $waktuakhir = date_create($tanggal_masuk . " " . $waktu_jam_pulang); //2019-02-21 09:35 waktu sekarang
+        //membagi sisa detik setelah dikurangi $jam menjadi menit
+        $menit = $diff - $jam * (60 * 60);
 
-        $diff  = date_diff($waktuawal, $waktuakhir);
+        if ($jam == -1) {
+            return floor($menit / 60);
+        } else {
 
-        return $diff->i;
-        // $awal  = strtotime($tanggal_masuk . $waktu_normal);
-        // $akhir = strtotime($tanggal_masuk . $waktu_jam_pulang);
-        // $diff  = $akhir - $awal;
-
-        // $jam   = floor($diff / (60 * 60));
-        // $menit = $diff - $jam * (60 * 60);
-
-        // return $menit;
+            return  floor($menit / 60);
+        }
     }
+
+
+    public static function batchInsert($tableName, $columnNameArray, $bulkInsertArray)
+    {
+        // \Yii::$app->db->createCommand()->truncateTable($tableName)->execute();
+        $insertCount = \Yii::$app->db->createCommand()
+            ->batchInsert($tableName, $columnNameArray, $bulkInsertArray)
+            ->execute();
+        return $insertCount;
+    }
+
 }
