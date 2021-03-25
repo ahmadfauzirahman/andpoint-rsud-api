@@ -3,6 +3,8 @@
 namespace app\components;
 
 use app\models\Absensi\MasterAbsensi;
+use app\models\Absensi\MasterJadwal;
+use app\models\JadwalSift;
 use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 use app\models\Kepegawaian\Master\MasterUnitSubPenempatan;
 use app\models\Kepegawaian\MasterPegawai;
@@ -27,6 +29,7 @@ class Helper
         'Masuk' => 'Masuk',
         'Pulang' => 'Pulang'
     ];
+
     static function StatusMasuk($r)
     {
         switch ($r) {
@@ -50,7 +53,7 @@ class Helper
     static function tgl_indo($tanggal)
     {
         $bulan = array(
-            1 =>   'Januari',
+            1 => 'Januari',
             'Februari',
             'Maret',
             'April',
@@ -204,7 +207,7 @@ class Helper
             return floor($menit / 60);
         } else {
 
-            return  floor($menit / 60);
+            return floor($menit / 60);
         }
     }
 
@@ -225,7 +228,7 @@ class Helper
             return floor($menit / 60);
         } else {
 
-            return  floor($menit / 60);
+            return floor($menit / 60);
         }
     }
 
@@ -237,6 +240,12 @@ class Helper
             ->batchInsert($tableName, $columnNameArray, $bulkInsertArray)
             ->execute();
         return $insertCount;
+    }
+
+    static function keteranganJadwal()
+    {
+        $model = MasterJadwal::find()->all();
+        return $model;
     }
 
 }

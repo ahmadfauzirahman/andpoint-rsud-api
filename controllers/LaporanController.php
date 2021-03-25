@@ -6,11 +6,14 @@ use app\components\GoogleCalendar;
 use app\components\HelperHari as ComponentsHelperHari;
 use app\models\Absensi\MasterAbsensi;
 use app\models\Absensi\ModelSearch\MasterAbsensiSearch;
+use app\models\Absensi\OrderJadwal;
+use app\models\JadwalSift;
 use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 use app\models\Kepegawaian\MasterPegawai;
 use HelperHari;
 use Mpdf\Mpdf;
 use Yii;
+use yii\helpers\Url;
 
 class LaporanController extends \yii\web\Controller
 {
@@ -82,5 +85,46 @@ class LaporanController extends \yii\web\Controller
             'data_absen' => $data_absen,
             'HariLibur' => $hariLiburNasional
         ]);
+    }
+
+
+    public function actionPrintCetakJadwal($id, $unit)
+    {
+
+        $jadwalSiftDetail = JadwalSift::findOne(['id_order' => $id]);
+
+        $tanggal = cal_days_in_month(CAL_GREGORIAN, $jadwalSiftDetail->bln, $jadwalSiftDetail->thn);
+
+        $jadwalSift = JadwalSift::find()
+            ->alias('jd')
+            ->select([
+                'mg.nama_lengkap',
+                'jd.*',
+                'oj.*'
+            ])
+            ->leftJoin(OrderJadwal::tableName() . " as oj", 'oj.id_order_jadwal::varchar=jd.id_order::varchar')
+            ->leftJoin(MasterPegawai::tableName() . " as mg", 'mg.id_nip_nrp=jd.identitas_pegawai')
+            ->where(['id_order' => $id])
+            ->asArray()
+            ->all();
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font_size' => 12,
+        ]);
+        $mpdf->AddPage('L'); // Adds a new page in Landscape orientation
+        $mpdf->SetTitle('JADWAL DINAS RSUD');
+        $mpdf->SetWatermarkImage(Url::to('@web/img/rsud.png'));
+        $mpdf->showWatermarkImage = true;
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->WriteHTML($this->renderPartial('laporan-cetak-jadwal', [
+            'mpdf' => $mpdf,
+            'jadwalSift' => $jadwalSift,
+            'tanggal' => $tanggal,
+        ]));
+
+        $mpdf->Output('Jadwal Dinas RSUD.pdf', 'I');
+        exit;
+        // echo '<pre>';
+        // var_dump($jadwalSift);
+        // exit;
     }
 }

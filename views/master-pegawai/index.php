@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-sm table-bordered table-hover table-list-item'
+                ],
                 // 'formatter' => ['class' => 'yii\i18n\Formatter', 'nullDisplay' => '-'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],

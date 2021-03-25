@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
     ]); ?>
     <?= $form->field($model, 'unit')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Helper::UnitKerja(), 'kode', 'nama'),
-        'theme' => Select2::THEME_KRAJEE, // this is the default if theme is not set
+        'theme' => Select2::THEME_DEFAULT, // this is the default if theme is not set
         'options' => [
             'placeholder' => 'Pilih Unit',
         ],

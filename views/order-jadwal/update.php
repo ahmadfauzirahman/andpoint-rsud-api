@@ -25,12 +25,17 @@ $this->params['breadcrumbs'][] = 'Update';
     <div class="row">
         <div class="col-lg-12" style="margin-top: 20px">
             <div class="card">
-                <div class="card-header bg-info">
+                <div class="card-body">
                     <a href="<?= Url::to(['order-jadwal/generate', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>"
                        class="btn btn-success card-title text-white">Generator Jadwal</a>
-                </div>
-                <div class="card-body">
-                    <?= $this->render('_form-jadwal', ['model' => $model]) ?>
+
+                    <a href="<?= Url::to(['laporan/print-cetak-jadwal', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>"
+                       class="btn btn-outline-danger card-title">Print Jadwal</a>
+                    <?= $this->render('_form-jadwal', [
+                        'model' => $model,
+                        'jadwal' => $jadwal,
+                        'tanggal' => $tanggal
+                    ]) ?>
                 </div>
             </div>
         </div>

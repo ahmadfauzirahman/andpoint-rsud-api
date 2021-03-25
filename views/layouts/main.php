@@ -23,11 +23,23 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
+
     <style>
-        body,
-        html {
-            font-family: 'Quicksand', sans-serif !important;
+        html,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ul,
+        li,
+        a,
+        p,
+        table,
+        strong {
+            font-family: 'Poppins', sans-serif !important;
         }
     </style>
     <?php $this->head() ?>
