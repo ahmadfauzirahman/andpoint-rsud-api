@@ -26,7 +26,9 @@
         "mihaildev/yii2-ckeditor": "*",
         "kartik-v/yii2-date-range": "dev-master",
         "mpdf/mpdf": "^8.0",
-        "yiidoc/yii2-redactor": "*"
+        "yiidoc/yii2-redactor": "*",
+        "kartik-v/yii2-widget-activeform": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

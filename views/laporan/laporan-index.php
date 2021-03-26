@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function ($model) {
                                     return Helper::StatusMasuk($model->status);
                                 }
-                            ]
+                            ],
                             // 'lat',
                             // 'long',
 
