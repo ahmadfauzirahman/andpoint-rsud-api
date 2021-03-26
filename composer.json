@@ -28,7 +28,8 @@
         "mpdf/mpdf": "^8.0",
         "yiidoc/yii2-redactor": "*",
         "kartik-v/yii2-widget-activeform": "dev-master",
-        "kartik-v/yii2-widget-datepicker": "dev-master"
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "yiisoft/yii2-httpclient": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
