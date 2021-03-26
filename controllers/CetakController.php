@@ -69,6 +69,7 @@ class CetakController extends \yii\web\Controller
 
         $startDayTanggal = $startDay;
         $startDayPukul = $startDay;
+        $startDayTtd = $startDay;
 
         $mpdf->WriteHTML($this->renderPartial('cetak-edp', [
             'org_edp' => $org_edp,
@@ -78,6 +79,7 @@ class CetakController extends \yii\web\Controller
             'endDay' => $endDay,
             'startDayTanggal' => $startDayTanggal,
             'startDayPukul' => $startDayPukul,
+            'startDayTtd' => $startDayTtd,
             'endDate' => $endDate,
         ]));
         // $mpdf->SetJS('this.print(false);');
