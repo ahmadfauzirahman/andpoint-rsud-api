@@ -10,6 +10,9 @@
  */
 
 /* @var $this yii\web\View */
+
+use yii\helpers\Url;
+
 ?>
 
 <style>
@@ -94,36 +97,67 @@ for ($i = 0; $i < $berapaLembar; $i++) {
             <tbody>
                 <?php
                 foreach ($org_edp as $key => $value) {
+                    if ($i < $berapaLembar) {
+                        $ttd = '<img style="width: 42px;" src="' . Url::to('@web/img/ttd/afdhal.png') . '" />';
+                        $jamMasuk1 = '07:30';
+                        $jamPulang1 = '07:30';
+                        $jamMasuk2 = '07:30';
+                        $jamPulang2 = '07:30';
+                        $jamMasuk3 = '07:30';
+                        $jamPulang3 = '07:30';
+                        $jamMasuk4 = '07:30';
+                        $jamPulang4 = '07:30';
+                        $jamMasuk5 = '07:30';
+                        $jamPulang5 = '07:30';
+                        $jamMasuk6 = '07:30';
+                        $jamPulang6 = '07:30';
+                    } else {
+                        $ttd = null;
+                        $jamMasuk1 = null;
+                        $jamPulang1 = null;
+                        $jamMasuk2 = null;
+                        $jamPulang2 = null;
+                        $jamMasuk3 = null;
+                        $jamPulang3 = null;
+                        $jamMasuk4 = null;
+                        $jamPulang4 = null;
+                        $jamMasuk5 = null;
+                        $jamPulang5 = null;
+                        $jamMasuk6 = null;
+                        $jamPulang6 = null;
+                    }
                     echo '
                     <tr>
                         <td>' . ($key + 1) . '</td>
                         <td  style="white-space:nowrap; text-align: left; padding: 20px 10px 20px 10px;">' . ucwords(strtolower($value['nama'])) . '</td>
                         <td  style="white-space:nowrap">' . ucwords(strtolower($value['jabatan'])) . '</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                        <td>' . $jamMasuk1 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang1 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamMasuk2 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang2 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamMasuk3 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang3 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamMasuk4 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang4 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamMasuk5 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang5 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamMasuk6 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                        <td>' . $jamPulang6 . '</td>
+                        <td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>
+                    ';
+
+                    echo '</tr>
                 ';
                 }
                 ?>
