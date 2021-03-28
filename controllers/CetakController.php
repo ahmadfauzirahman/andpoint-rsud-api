@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use yii\helpers\Json;
 use yii\httpclient\Client;
 
 
@@ -44,11 +45,79 @@ class CetakController extends \yii\web\Controller
                 // 'jenis' => 'jaringan', // jaringan
             ])
             ->send();
+        $kepalaEdp = $client->createRequest()
+            ->setMethod('GET')
+            ->setUrl('http://sip.simrs.aa/api/simpeg')
+            ->setData([
+                'token' => 'DataPegawaiRSUD44',
+                'jenis' => 'atasan',
+                'search' => 37,
+            ])
+            ->send();
 
         if ($orangEdp->isOk) {
             $org_edp = $orangEdp->data['result'];
+
+            $org_edp =
+                [
+                    'con' => true,
+                    'info' => "success",
+                    'num' => 9,
+                    'result' => [
+                        [
+                            'id' => "1403092308940009",
+                            'nama' => "Dicky Ermawan Sukwana, S.T",
+                            'jabatan' => "SOFTWARE ENGINEER",
+                            'penempatan' => "ELECTRONIC DATA PROCESSING",
+                            'bulan' => "03",
+                            'tahun' => "2021",
+                            'absensi'  => [
+                                1 => [
+                                    'jam_masuk' => "07:59",
+                                    'jam_pulang' => "15:30",
+                                ],
+                                2 => [
+                                    'jam_masuk' => "07:30",
+                                    'jam_pulang' => "17:30",
+                                ],
+                                5 => [
+                                    'jam_masuk' => "08:18",
+                                    'jam_pulang' => "16:20",
+                                ],
+                            ],
+                        ],
+                        [
+                            'id' => "1403092308940008",
+                            'nama' => "Afdhal",
+                            'jabatan' => "SOFTWARE ENGINEER",
+                            'penempatan' => "ELECTRONIC DATA PROCESSING",
+                            'bulan' => "03",
+                            'tahun' => "2021",
+                            'absensi'  => [
+                                1 => [
+                                    'jam_masuk' => "08:30",
+                                    'jam_pulang' => "16:45",
+                                ],
+                                2 => [
+                                    'jam_masuk' => "07:30",
+                                    'jam_pulang' => "17:30",
+                                ],
+                            ],
+                        ],
+                    ]
+                ];
+            $org_edp = $org_edp['result'];
+            // echo "<pre>";
+            // print_r($org_edp);
+            // echo "</pre>";
+            // die;
         } else {
             $org_edp = null;
+        }
+        if ($kepalaEdp->isOk) {
+            $kepala_edp = $kepalaEdp->data['result'][0];
+        } else {
+            $kepala_edp = null;
         }
 
         $bulanAbsen = '03-2021';
@@ -73,6 +142,7 @@ class CetakController extends \yii\web\Controller
 
         $mpdf->WriteHTML($this->renderPartial('cetak-edp', [
             'org_edp' => $org_edp,
+            'kepala_edp' => $kepala_edp,
             'berapaLembar' => $berapaLembar,
             'periode' => $periode,
             'startDay' => $startDay,
