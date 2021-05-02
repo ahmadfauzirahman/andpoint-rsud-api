@@ -259,7 +259,13 @@ class CetakController extends \yii\web\Controller
             'startDayTtd' => $startDayTtd,
             'startDate' => $startDate,
             'endDate' => $endDate,
-            'jadwalSift' => $orderJadwal->jadwalsift,
+            'jadwalSift' => $orderJadwal
+                ->getJadwalsift()
+                ->joinWith(['pegawai'])
+                ->orderBy([
+                    'nama_lengkap' => SORT_ASC
+                ])
+                ->all(),
         ]));
         // $mpdf->SetJS('this.print(false);');
         // $mpdf->Output('Cetak Struk Penjualan ' . $model['no_penjualan'] . '.pdf', 'F');
