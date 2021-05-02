@@ -162,6 +162,11 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionLaporanRekapUnit()
+    {
+        return $this->render('laporan-rekap-unit');
+    }
+
     public function actionBuatJadwalSift()
     {
         $model = new JadwalSift();

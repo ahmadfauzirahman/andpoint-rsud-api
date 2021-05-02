@@ -1,5 +1,6 @@
 <?php
 
+use app\models\JadwalSift;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -26,11 +27,13 @@ $this->params['breadcrumbs'][] = 'Update';
         <div class="col-lg-12" style="margin-top: 20px">
             <div class="card">
                 <div class="card-body">
-                    <a href="<?= Url::to(['order-jadwal/generate', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>"
-                       class="btn btn-success card-title text-white">Generator Jadwal</a>
 
-                    <a href="<?= Url::to(['laporan/print-cetak-jadwal', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>"
-                       class="btn btn-outline-danger card-title">Print Jadwal</a>
+                    <?php
+                    $check = JadwalSift::findOne(['id_order' => $model->id_order_jadwal]);
+                    if (is_null($check)) {
+                    ?><a href="<?= Url::to(['order-jadwal/generate', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>" class="btn btn-success card-title text-white btn-rounded">Generator Jadwal</a>
+                    <?php } ?>
+                    <a href="<?= Url::to(['laporan/print-cetak-jadwal', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>" class="btn btn-outline-danger card-title btn-rounded">Print Jadwal</a>
                     <?= $this->render('_form-jadwal', [
                         'model' => $model,
                         'jadwal' => $jadwal,

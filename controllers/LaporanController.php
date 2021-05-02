@@ -36,6 +36,89 @@ class LaporanController extends \yii\web\Controller
         ]);
     }
 
+    public function actionLaporanRekapEselon()
+    {
+
+        // echo '<pre>';
+        // var_dump($model);
+        // exit;
+
+        $query = Yii::$app->db->createCommand("
+       WITH data_eselon AS (select
+       a.nama_lengkap ,
+       a.id_nip_nrp ,
+       (
+       select
+     --    b.kode_jabatan,
+         b.eselon_id 
+       from
+       pegawai.tb_riwayat_jabatan b
+       where
+         b.nip = a.id_nip_nrp
+       order by
+         b.sk_pelantikan_tanggal desc
+       limit 1) as eselon
+     from
+       pegawai.tb_pegawai a
+     where
+       a.status_kepegawaian_id = '121'
+       and a.status_aktif_pegawai = '1'
+     order by
+       eselon asc)
+       
+     SELECT * FROM data_eselon WHERE eselon != 99 and eselon is not null;         
+       ")->queryAll();
+
+
+        $queryCount = Yii::$app->db->createCommand("
+       WITH data_eselon AS (select
+       a.nama_lengkap ,
+       a.id_nip_nrp ,
+       (
+       select
+     --    b.kode_jabatan,
+         b.eselon_id 
+       from
+       pegawai.tb_riwayat_jabatan b
+       where
+         b.nip = a.id_nip_nrp
+       order by
+         b.sk_pelantikan_tanggal desc
+       limit 1) as eselon
+     from
+       pegawai.tb_pegawai a
+     where
+       a.status_kepegawaian_id = '121'
+       and a.status_aktif_pegawai = '1'
+     order by
+       eselon asc)
+       
+     SELECT count(1) FROM data_eselon WHERE eselon != 99 and eselon is not null;
+       ")->queryAll();
+        $berapaLembar = $queryCount[0]['count'];
+        // var_dump($queryCount[0]['count']);
+        // exit();
+        $fontsize = 12;
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'default_font' => 'sanserif',
+            'default_font_size' => $fontsize,
+            //'format'=> (($size_orientation=='LEGAL-L')?[330,215]:[215,330]),
+        ]);
+
+        $mpdf->AddPage('L');
+        $mpdf->WriteHTML($this->renderPartial('laporan-eselon', [
+            'queryAll' => $query,
+            'berapaLembar' => $berapaLembar
+            // 'model' => $model
+            // 'laporan' => $laporan,
+        ]));
+
+        $mpdf->Output('Laporan Rekap Absensi Eselon.pdf', 'I');
+
+        exit;
+    }
+
     public function actionLaporanCetakPdf()
     {
 

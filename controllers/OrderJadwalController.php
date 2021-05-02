@@ -137,9 +137,9 @@ class OrderJadwalController extends Controller
             ];
         }
 
-//        echo '<pre>';
-//        print_r($jadwalDinasFormJson);
-//        exit();
+        //        echo '<pre>';
+        //        print_r($jadwalDinasFormJson);
+        //        exit();
 
         $penempatan = MasterRiwayatPenempatan::find()
             ->select([
@@ -156,15 +156,14 @@ class OrderJadwalController extends Controller
             return $d;
         }, $penempatan);
 
-//        echo '<pre>';
-//        print_r($penempatan);
-//        exit();
+        //        echo '<pre>';
+        //        print_r($penempatan);
+        //        exit();
         Helper::batchInsert(JadwalSift::tableName(), [
             'identitas_pegawai', 'id_order', 'bln', 'thn', 'schedule',
         ], $penempatan);
 
         return $this->redirect(['update', 'id' => $id]);
-
     }
 
     /**
@@ -177,7 +176,8 @@ class OrderJadwalController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        $model = Yii::$app->db->createCommand("DELETE FROM absensi.tb_jadwal_sift WHERE id_order=$id");
+        $model->execute();
         return $this->redirect(['index']);
     }
 
@@ -193,8 +193,8 @@ class OrderJadwalController extends Controller
         ];
         $employee_no = $_POST['employee_no'];
         $pegawai = MasterPegawai::findOne($employee_no);
-//var_dump($pegawai);
-//exit();
+        //var_dump($pegawai);
+        //exit();
         $model->schedule = json_encode($array);
         $model->save();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -224,6 +224,5 @@ class OrderJadwalController extends Controller
 
     public function actionCetak($id, $unit)
     {
-
     }
 }
