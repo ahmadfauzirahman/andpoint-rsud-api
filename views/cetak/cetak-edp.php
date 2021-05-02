@@ -98,13 +98,13 @@ for ($i = 0; $i < $berapaLembar; $i++) {
                 <?php
                 foreach ($org_edp as $key => $value) {
 
-                    $ttd = '<img style="width: 42px;" src="' . Url::to('@web/img/ttd/afdhal.png') . '" />';
+                    $ttd = '<img style="width: 52px;" src="' . Url::to('@web/img/ttd/INSTALASI ELECTRONIC DATA PROCESSING/' . $value['id'] . '.png') . '" />';
 
                     echo '
                     <tr>
                         <td>' . ($key + 1) . '</td>
-                        <td  style="white-space:nowrap; text-align: left; padding: 20px 10px 20px 10px;">' . ucwords(strtolower($value['nama'])) . '</td>
-                        <td  style="white-space:nowrap">' . ucwords(strtolower($value['jabatan'])) . '</td>
+                        <td  style="white-space:nowrap; text-align: left; padding: 20px 10px 20px 10px;">' . $value['nama'] . '</td>
+                        <td  style="white-space:nowrap">' . $value['jabatan'] . '</td>
                         ';
                     // loop untuk print ttd & jam masuk pulang setiap halaman 
                     // $i_ttd = tanggal 
@@ -115,10 +115,10 @@ for ($i = 0; $i < $berapaLembar; $i++) {
                             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
                             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
                         } else {
-                            echo '<td style="padding: 1px 1px 1px 1px;">' . $i_ttd . '</td>';
-                            echo '<td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>';
-                            echo '<td style="padding: 1px 1px 1px 1px;">07:30</td>';
-                            echo '<td style="padding: 1px 1px 1px 1px;">' . $ttd . '</td>';
+                            echo '<td style="padding: 1px 1px 1px 1px;">' . (isset($value['absensi'][$i_ttd]) ? $value['absensi'][$i_ttd]['jam_masuk'] : '-') . '</td>';
+                            echo '<td style="padding: 1px 3px 1px 3px;">' . (isset($value['absensi'][$i_ttd]) ? $ttd : '-') . '</td>';
+                            echo '<td style="padding: 1px 1px 1px 1px;">' . (isset($value['absensi'][$i_ttd]) ? $value['absensi'][$i_ttd]['jam_pulang'] : '-') . '</td>';
+                            echo '<td style="padding: 1px 3px 1px 3px;">' . (isset($value['absensi'][$i_ttd]) ? $ttd : '-') . '</td>';
                         }
                     }
                     echo '</tr>
@@ -144,10 +144,10 @@ for ($i = 0; $i < $berapaLembar; $i++) {
                             <br>
                             <br>
                             <span style="text-decoration: underline;">
-                                Fauzi
+                                <?= $kepala_edp['nama'] ?>
                             </span>
                             <br>
-                            NIP. 1969817236871234
+                            NIP. <?= $kepala_edp['nip'] ?>
                         </td>
                     </tr>
                 </tbody>

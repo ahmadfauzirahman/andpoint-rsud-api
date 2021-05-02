@@ -65,4 +65,9 @@ class OrderJadwal extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MasterPegawai::className(), ['id_nip_nrp' => 'identitas']);
     }
+
+    public function getJadwalsift()
+    {
+        return $this->hasMany(JadwalSift::className(), ['id_order' => 'id_order_jadwal']);
+    }
 }
