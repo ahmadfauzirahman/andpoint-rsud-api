@@ -159,8 +159,10 @@ class CetakController extends \yii\web\Controller
         exit;
     }
 
-    public function actionJadwal()
+    public function actionJadwal($id = null, $unit = null)
     {
+        $id_unit = $unit;
+
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => 'A4',
@@ -177,7 +179,6 @@ class CetakController extends \yii\web\Controller
         $mpdf->SetTitle('Cetak Jadwal');
         $mpdf->AddPage('L');
 
-        $id_unit = 285;
         $orderJadwal = OrderJadwal::find()
             ->where([
                 'unit' => $id_unit
@@ -226,26 +227,6 @@ class CetakController extends \yii\web\Controller
         $startDayTanggal = $startDay;
         $startDayPukul = $startDay;
         $startDayTtd = $startDay;
-
-        // echo "<pre>";
-        // print_r($startDate);
-        // echo "</pre>";
-        // die;
-
-        // return $this->render('cetak-jadwal', [
-        //     // 'org_edp' => $org_edp,
-        //     'kepala_edp' => $kepala_edp,
-        //     'berapaLembar' => $berapaLembar,
-        //     'periode' => $periode,
-        //     'startDay' => $startDay,
-        //     'endDay' => $endDay,
-        //     'startDayTanggal' => $startDayTanggal,
-        //     'startDayPukul' => $startDayPukul,
-        //     'startDayTtd' => $startDayTtd,
-        //     'startDate' => $startDate,
-        //     'endDate' => $endDate,
-        //     'jadwalSift' => $orderJadwal->jadwalsift,
-        // ]);
 
         $mpdf->WriteHTML($this->renderPartial('cetak-jadwal', [
             // 'org_edp' => $org_edp,

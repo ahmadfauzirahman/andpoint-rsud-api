@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Update';
                     if (is_null($check)) {
                     ?><a href="<?= Url::to(['order-jadwal/generate', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>" class="btn btn-success card-title text-white btn-rounded">Generator Jadwal</a>
                     <?php } ?>
-                    <a href="<?= Url::to(['laporan/print-cetak-jadwal', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>" class="btn btn-outline-danger card-title btn-rounded">Print Jadwal</a>
+                    <a target="_blank" href="<?= Url::to(['cetak/jadwal', 'id' => $model->id_order_jadwal, 'unit' => $model->unit]) ?>" class="btn btn-outline-danger card-title btn-rounded">Print Jadwal</a>
                     <?= $this->render('_form-jadwal', [
                         'model' => $model,
                         'jadwal' => $jadwal,
