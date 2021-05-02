@@ -11,6 +11,10 @@ use yii\helpers\Url;
 <li>
     <a href="<?= Url::to(['/site/maps']) ?>" class="waves-effect"><i class="mdi mdi-google-maps"></i> <span> Tracking </span> </a>
 </li>
+<li>
+    <a href="<?= Url::to(['/site/laporan-rekap-unit']) ?>" class="waves-effect"><i class="mdi mdi-file"></i> <span> Laporan Unit </span> </a>
+</li>
+
 <div style="display: none;">
 
     <li>

@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card card-body">
 
                 <p>
-                    <?= Html::a('Tambah Order Jadwal', ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('Tambah Order Jadwal', ['create'], ['class' => 'btn btn-success btn-rounded']) ?>
                 </p>
 
                 <?php Pjax::begin(); ?>
@@ -31,23 +31,41 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'table table-sm table-bordered table-hover table-list-item'
                     ],
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'headerOptions' => ['style' => 'text-align:center;'],
+                            'contentOptions' => ['style' => 'text-align:center;'],
+                            'class' => 'yii\grid\SerialColumn'
+                        ],
 
                         // 'id_order_jadwal',
                         [
+                            'headerOptions' => ['style' => 'text-align:center;'],
+                            'contentOptions' => ['style' => 'text-align:center;'],
                             'attribute' => 'identitas',
                             'value' => 'pegawai.nama_lengkap'
                         ],
-                        'jadwal',
-                        'keterangan:ntext',
                         [
+                            'headerOptions' => ['style' => 'text-align:center;'],
+                            'contentOptions' => ['style' => 'text-align:center;'],
+                            'attribute' => 'jadwal'
+                        ],
+                        [
+                            'headerOptions' => ['style' => 'text-align:center;'],
+                            'contentOptions' => ['style' => 'text-align:center;'],
                             'attribute' => 'unit',
                             'value' => 'sub.nama'
+                        ],
+                        [
+                            'headerOptions' => ['style' => 'padding:10px'],
+                            'contentOptions' => ['style' => 'padding:10px'],
+                            'attribute' => 'keterangan'
                         ],
                         //'created_at',
                         //'created_by',
 
                         [
+                            'headerOptions' => ['style' => 'text-align:center;'],
+                            'contentOptions' => ['style' => 'text-align:center;'],
                             'class' => 'app\components\ActionColumn',
                         ],
                     ],

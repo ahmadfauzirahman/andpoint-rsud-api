@@ -83,6 +83,58 @@ $config = [
             ],
         ],
     ],
+    'container' => [
+        'definitions' => [
+            // app\components\number\KyNumber::class => [
+            //     'maskedInputOptions' => [
+            //         // 'prefix' => 'Rp ',
+            //         // 'alias' => 'numeric',
+            //         'positionCaretOnClick' => 'none',
+            //         'groupSeparator' => '.',
+            //         'radixPoint' => ',',
+            //         'allowMinus' => false,
+            //         'unmaskAsNumber' => true, // untuk ambil unmasked value sebagai number,
+            //     ],
+            //     'displayOptions' => ['class' => 'form-control form-control-sm', 'autocomplete' => 'off'],
+            //     'options' => [
+            //         'type' => 'hidden',
+            //         // 'label' => '<label>Saved Value: </label>',
+            //         'label' => null,
+            //         'class' => 'kv-saved',
+            //         'readonly' => true,
+            //         'tabindex' => 1000
+            //     ],
+            //     'saveInputContainer' => ['class' => 'kv-saved-cont'],
+            // ],
+            yii\grid\ActionColumn::class => [
+                'class' => 'app\components\ActionColumn',
+                'headerOptions' => [
+                    'class' => 'bg-lightblue'
+                ],
+                'contentOptions' => [
+                    'class' => 'action-column',
+                    'style' => 'text-align: center;'
+                ],
+            ],
+
+            yii\grid\DataColumn::class => [
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-sm',
+                    'autocomplete' => 'off'
+                ],
+                'headerOptions' => [
+                    // 'class' => 'bg-lightblue'
+                ],
+                'contentOptions' => [
+                    // 'style' => 'white-space: nowrap;',
+                    // 'class' => 'action-column',
+                    'style' => 'overflow: hidden; text-overflow: ellipsis;',
+                ]
+            ],
+
+
+        ],
+    ],
     'params' => $params,
     'modules' => [
         'gridview' =>  [

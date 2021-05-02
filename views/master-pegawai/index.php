@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-box table-responsive">
 
         <p class="text-muted font-14 m-b-30">
-            <?= Html::a('Tambah Master Pegawai <span class="fa fa-plus"></span>', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Tambah Master Pegawai <span class="fa fa-plus"></span>', ['create'], ['class' => 'btn btn-success btn-rounded']) ?>
         </p>
 
         <?php Pjax::begin(['enablePushState' => false]); ?>

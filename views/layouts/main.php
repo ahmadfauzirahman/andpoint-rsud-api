@@ -23,25 +23,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
 
-    <style>
-        html,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        ul,
-        li,
-        a,
-        p,
-        table,
-        strong {
-            font-family: 'Poppins', sans-serif !important;
-        }
-    </style>
     <?php $this->head() ?>
 </head>
 
@@ -57,7 +39,7 @@ AppAsset::register($this);
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <b><a style="font-family: 'Quicksand', sans-serif !important" href="<?= Url::to(['/site/index']) ?>" class="logo"><span>Prese<span>nsi</span></span><i class="mdi mdi-layers"></i></a></b>
+                <b><a href="<?= Url::to(['/site/index']) ?>" class="logo"><span>Prese<span>nsi</span></span><i class="mdi mdi-layers"></i></a></b>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
