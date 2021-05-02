@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Kepegawaian\MasterPegawai;
 use Yii;
 
 /**
@@ -47,5 +48,10 @@ class JadwalSift extends \yii\db\ActiveRecord
             'thn' => 'Thn',
             'created_by' => 'Created By',
         ];
+    }
+
+    public function getPegawai()
+    {
+        return $this->hasOne(MasterPegawai::className(), ['id_nip_nrp' => 'identitas_pegawai']);
     }
 }
