@@ -15,4 +15,10 @@ class App
         }
         return false;
     }
+
+    static function isKepalaRuangan()
+    {
+        
+    }
+
 }

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
+use app\models\Kepegawaian\Master\MasterUnitSubPenempatan;
 use app\models\OrderJadwal;
 use yii\helpers\Json;
 use yii\httpclient\Client;
@@ -176,15 +178,26 @@ class CetakController extends \yii\web\Controller
         ]);
         // $mpdf->use_kwt = true;
         $mpdf->shrink_tables_to_fit = 1;
-        $mpdf->SetTitle('Cetak Jadwal');
-        $mpdf->AddPage('L');
 
         $orderJadwal = OrderJadwal::find()
+            // ->leftJoin('pegawai.dm_unit_sub_penempatan', 'pegawai.dm_unit_sub_penempatan.kode_rumpun=dm_unit_penempatan.kode')
             ->where([
-                'unit' => $id_unit
+                'tb_order_jadwal.unit' => $id_unit
             ])
             ->one();
 
+        $unitTerkait = MasterUnitSubPenempatan::find()
+            ->alias('msb')->select([
+                'mup.nama',
+                'mup.kode'
+            ])
+            ->leftJoin(MasterUnitPenempatan::tableName() . " as mup", 'msb.kode_rumpun=mup.kode')
+            ->where(['msb.kode' => $unit])->one();
+        // var_dump($unitTerkait);
+        // exit;
+
+        $mpdf->SetTitle('Cetak Jadwal - ' . $orderJadwal->sub->nama);
+        $mpdf->AddPage('L');
         // echo "<pre>";
         // print_r($orderJadwal->jadwalsift);
         // echo "</pre>";
@@ -198,17 +211,21 @@ class CetakController extends \yii\web\Controller
             ->setData([
                 'token' => 'DataPegawaiRSUD44',
                 'jenis' => 'atasan',
-                'search' => 37,
+                'search' => $unitTerkait->kode,
             ])
             ->send();
+         
         if ($kepalaEdp->isOk) {
             $kepala_edp = $kepalaEdp->data['result'][0];
         } else {
             $kepala_edp = null;
         }
 
+        // echo '<pre>';
+        // var_dump($kepala_edp);
+        // exit;
 
-        $bulanAbsen = '03-2021';
+        $bulanAbsen = $orderJadwal->jadwal;
 
         $query_date = date('Y-m-d', strtotime('01-' . $bulanAbsen));
         $periode = \Yii::$app->formatter->asDate($query_date, 'php:F Y');
@@ -247,6 +264,8 @@ class CetakController extends \yii\web\Controller
                     'nama_lengkap' => SORT_ASC
                 ])
                 ->all(),
+            'orderJadwal' => $orderJadwal,
+            'unitTerkait' => $unitTerkait
         ]));
         // $mpdf->SetJS('this.print(false);');
         // $mpdf->Output('Cetak Struk Penjualan ' . $model['no_penjualan'] . '.pdf', 'F');

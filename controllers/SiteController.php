@@ -71,9 +71,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        if (App::isRoot() == false) {
-            return $this->redirect("http://sso.simrs.aa/");
-        }
+        // if (App::isRoot() == false) {
+        //     return $this->redirect("http://sso.simrs.aa/");
+        // }
+
+        // if(App::is)
+
+
         // echo '<pre>';
         $penempatan = MasterRiwayatPenempatan::find()
             ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])

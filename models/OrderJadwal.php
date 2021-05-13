@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
 use app\models\Kepegawaian\Master\MasterUnitSubPenempatan;
 use app\models\Kepegawaian\ModelSearch\MasterPegawai;
 use Yii;
@@ -36,6 +37,7 @@ class OrderJadwal extends \yii\db\ActiveRecord
         return [
             [['identitas', 'keterangan', 'created_by', 'jenis'], 'string'],
             [['jadwal', 'created_at', 'unit'], 'safe'],
+            [['jadwal'], 'required'],
         ];
     }
 
@@ -60,6 +62,13 @@ class OrderJadwal extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MasterUnitSubPenempatan::className(), ['kode' => 'unit']);
     }
+
+
+    // public function getUnit()
+    // {
+    //     return $this->hasOne(MasterUnitPenempatan::className(), ['kode' => 'unit']);
+    // }
+    // public function get
 
     public function getPegawai()
     {

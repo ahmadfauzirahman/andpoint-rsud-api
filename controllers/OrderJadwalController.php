@@ -176,7 +176,7 @@ class OrderJadwalController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        $model = Yii::$app->db->createCommand("DELETE FROM absensi.tb_jadwal_sift WHERE id_order::varchar=$id");
+        $model = Yii::$app->db->createCommand("DELETE FROM absensi.tb_jadwal_sift WHERE id_order='$id'");
         $model->execute();
         return $this->redirect(['index']);
     }

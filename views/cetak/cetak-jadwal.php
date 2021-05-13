@@ -62,8 +62,8 @@ use yii\helpers\Url;
 ?>
 <div class="page-absen">
     <div style="text-align: center; font-weight: bold;">
-        JADWAL SHIFT PROGRAMMER<br>
-        INSTALASI ELECTRONIC DATA PROCESSING (EDP)<br>
+        JADWAL SHIFT <?= $orderJadwal->sub->nama ?><br>
+        <?= $unitTerkait->nama ?><br>
         RSUD ARIFIN ACHMAD PROVINSI RIAU PERIODE<br>
         <?= strtoupper($periode) ?><br>
 
@@ -113,44 +113,17 @@ use yii\helpers\Url;
                     ?>
                 </tr>
                 <tr>
-                    <?php
-                    // for ($i_tanggal = $startDayTanggal; $i_tanggal < ($startDayTanggal + 6); $i_tanggal++) {
-                    //     if ($i_tanggal > $endDay)
-                    //         echo '
-                    //         <th colspan="4" style="width: 48px;">&nbsp;</th>
-                    //     ';
-                    //     else
-                    //         echo '
-                    //         <th colspan="4" style="width: 48px;">' . $i_tanggal . '</th>
-                    //     ';
-                    // }
-                    // $startDayTanggal = $i_tanggal;
+
                     ?>
                 </tr>
                 <tr>
-                    <?php
-                    // for ($i_pukul = $startDayPukul; $i_pukul < ($startDayPukul + 6); $i_pukul++) {
-                    //     if ($i_pukul > $endDay)
-                    //         echo '
-                    //         <th style="width: 12px; color: white;">Pukul Masuk</th>
-                    //         <th style="width: 12px; color: white;">TTD</th>
-                    //         <th style="width: 12px; color: white;">Pukul Pulang</th>
-                    //         <th style="width: 12px; color: white;">TTD</th>
-                    //     ';
-                    //     else
-                    //         echo '
-                    //         <th style="width: 12px;">Pukul Masuk</th>
-                    //         <th style="width: 12px;">TTD</th>
-                    //         <th style="width: 12px;">Pukul Pulang</th>
-                    //         <th style="width: 12px;">TTD</th>
-                    //     ';
-                    // }
-                    // $startDayPukul = $i_pukul;
-                    ?>
+
                 </tr>
             </thead>
             <tbody>
                 <?php
+                $siftRekap = [];
+
                 foreach ($jadwalSift as $key => $value) {
                     $schedule = Json::decode($value->schedule, $asArray = true);
                     // echo "<pre>";
@@ -163,49 +136,46 @@ use yii\helpers\Url;
                             <td>' . ($key + 1) . '</td>
                             <td style="white-space:nowrap">' . ($value->pegawai->nama_lengkap ?? '-') . '</td>
                             ';
+                    $libur = null;
+                    $malam = null;
+                    $l = 0;
+                    $m = 0;
                     for ($i = $startDay; $i <= $endDay; $i++) {
+
                         $jadwalSiftKu = ($schedule['tanggal-' . $i]['tglJadwalKeterangan'] == 'Jadwal Belum Disetting' ? '' : $schedule['tanggal-' . $i]['tglJadwalKeterangan']);
                         $warnaTd = 'white';
-                        if ($jadwalSiftKu == 'L')
+                        if ($jadwalSiftKu == 'L') {
+                            $l++;
                             $warnaTd = 'red';
-                        echo '<td style="background-color: ' . $warnaTd . '">' . $jadwalSiftKu . '</td>';
+                            echo '<td style="background-color: ' . $warnaTd . '">' . $jadwalSiftKu . '</td>';
+                            // $l = 1;
+                        } else if ($jadwalSiftKu == 'M') {
+                            $m++;
+
+                            echo '<td style="background-color: ' . $warnaTd . '">' . $jadwalSiftKu . '</td>';
+                        } else {
+                            echo '<td style="background-color: ' . $warnaTd . '">' . $jadwalSiftKu . '</td>';
+                        }
+
+                        
+
+                        //   var_dump($jadwalSift);
+
+
+                        // $libur += $l;
+                        // $malam += $m;
                     }
+                    array_push($siftRekap, [
+                        'libur' => $l,
+                        'malam' => $m,
+                    ]);
 
                     echo '
                         </tr>
                     ';
                 }
                 ?>
-                <?php
-                // foreach ($org_edp as $key => $value) {
 
-                //     $ttd = '<img style="width: 52px;" src="' . Url::to('@web/img/ttd/INSTALASI ELECTRONIC DATA PROCESSING/' . $value['id'] . '.png') . '" />';
-
-                //     echo '
-                //     <tr>
-                //         <td>' . ($key + 1) . '</td>
-                //         <td  style="white-space:nowrap; text-align: left; padding: 20px 10px 20px 10px;">' . $value['nama'] . '</td>
-                //         <td  style="white-space:nowrap">' . $value['jabatan'] . '</td>
-                //         ';
-                //     // loop untuk print ttd & jam masuk pulang setiap halaman 
-                //     // $i_ttd = tanggal 
-                //     for ($i_ttd = $startDayTtd; $i_ttd < ($startDayTtd + 6); $i_ttd++) {
-                //         if ($i_ttd > $endDay) {
-                //             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
-                //             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
-                //             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
-                //             echo '<td style="padding: 1px 1px 1px 1px;"></td>';
-                //         } else {
-                //             echo '<td style="padding: 1px 1px 1px 1px;">' . (isset($value['absensi'][$i_ttd]) ? $value['absensi'][$i_ttd]['jam_masuk'] : '-') . '</td>';
-                //             echo '<td style="padding: 1px 3px 1px 3px;">' . (isset($value['absensi'][$i_ttd]) ? $ttd : '-') . '</td>';
-                //             echo '<td style="padding: 1px 1px 1px 1px;">' . (isset($value['absensi'][$i_ttd]) ? $value['absensi'][$i_ttd]['jam_pulang'] : '-') . '</td>';
-                //             echo '<td style="padding: 1px 3px 1px 3px;">' . (isset($value['absensi'][$i_ttd]) ? $ttd : '-') . '</td>';
-                //         }
-                //     }
-                //     echo '</tr>
-                // ';
-                // }
-                // $startDayTtd = $i_ttd;
                 ?>
             </tbody>
         </table>
@@ -236,10 +206,10 @@ use yii\helpers\Url;
                     // die;
                     echo '
                         <tr>
+                            <td>' . $siftRekap[$key]['libur'] . '</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
+                            <td>' . $siftRekap[$key]['malam'] . '</td>
                             <td>0</td>
                             <td>0</td>
                         </tr>
@@ -257,10 +227,10 @@ use yii\helpers\Url;
         <tbody>
             <tr>
                 <td style="width: 75%;"></td>
-                <td style="width: 25%; text-align: center;">
+                <td style="width: 25%; text-align: center;font-size: 12px;">
                     Pekanbaru, <?= Yii::$app->formatter->asDate($endDate, 'php:d F Y') ?>
                     <br>
-                    Kepala Instalasi EDP
+                    <?= $kepala_edp['jabatan'] ?>
                     <br>
                     <br>
                     <br>
