@@ -28,14 +28,14 @@
 		foreach ($queryAll as $itemAbsen) { ?>
 
 			<?php
-			$total = Helper::getTotalRekapAbsen($itemAbsen['id_nip_nrp'], date('Y-m-d', strtotime('-1 Months')))
+			$total = Helper::getTotalRekapAbsen($itemAbsen['id_nip_nrp'], date('Y-m-d'))
 			?>
 			<tr>
 				<td style="padding: 2px;text-align: center;"><?= $no ?></td>
 				<td style="padding: 5px;"><?= $itemAbsen['id_nip_nrp'] ?></td>
 				<td style="padding: 5px;"><?= $itemAbsen['nama_lengkap'] ?></td>
 				<td style="text-align: center;">
-					22
+					<?= $total['hariKerja'] ?>
 				</td>
 				<td style="text-align: center;">
 					<?= $total['alfa'] ?>
@@ -49,16 +49,9 @@
 				<td style="text-align: center;">
 
 					<?php
-
-					if (in_array($itemAbsen['id_nip_nrp'], ['197106241991012001', '197709102007012003'])) {
-						echo '0 Menit';
-					} else {
-						echo rand(30,33) . ' Menit';
-					}
-					// $totalJam =	$total['datangTelat']['totalJam'] == 0 ? null : $total['datangTelat']['totalJam'] . ' Jam '
+					$totalJam =	$total['datangTelat']['totalJam'] == 0 ? null : $total['datangTelat']['totalJam'] . ' Jam '
 					?>
-					<?php // $totalJam . $total['datangTelat']['totalMenit']  . ' Menit' 
-					?>
+					<?= $totalJam . $total['datangTelat']['totalMenit']  . ' Menit' ?>
 				</td>
 				<td style="text-align: center;">
 
@@ -93,7 +86,7 @@ foreach ($queryAll as $itemAbsens) {
 			</tr>
 			<tr>
 				<?php
-				$d = cal_days_in_month(CAL_GREGORIAN, date('m', strtotime('-1 Months')), date('Y', strtotime('-1 Months')));
+				$d = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
 				for ($i = 1; $i <= $d; $i++) { ?>
 					<th style="width:  2%; text-align: center; padding:2px"><?= $i ?></th>
@@ -116,20 +109,20 @@ foreach ($queryAll as $itemAbsens) {
 	<table border="1" style="width: 100%;border-collapse: collapse;margin-top: 10px;">
 		<thead>
 			<tr>
-				<th width="10%;" style="text-align: center; padding:2px;">Hari</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Jam Masuk</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Jam Keluar</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Status Jam Masuk</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Status Jam Pulang</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Jam Kerja</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Over Time ( OT )</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Jumlah Cepat Pulang</th>
-				<th width="20%;" style="text-align: center; padding:2px;">Jumlah Telat Datang</th>
+				<th width= "10%;" style="text-align: center; padding:2px;">Hari</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Jam Masuk</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Jam Keluar</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Status Jam Masuk</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Status Jam Pulang</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Jam Kerja</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Over Time ( OT )</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Jumlah Cepat Pulang</th>
+				<th width= "20%;" style="text-align: center; padding:2px;">Jumlah Telat Datang</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
-			$hari_ini = date("Y-m-d", strtotime('-1 Months'));
+			$hari_ini = date("Y-m-d");
 			$tgl_pertama = date('Y-m-01', strtotime($hari_ini));
 			$tgl_terakhir = date('Y-m-t', strtotime($hari_ini));
 			$absensi = MasterAbsensi::find()
@@ -179,147 +172,147 @@ foreach ($queryAll as $itemAbsens) {
 						?>
 					</td>
 					<td style=" text-align: center;;">
-						<?php
-						$hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-						$dataAbsen_hari = date('D', strtotime($dataabsen->tanggal_masuk));
+                        <?php
+                        $hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                        $dataAbsen_hari = date('D', strtotime($dataabsen->tanggal_masuk));
 
-						$jam_normal_pulang = null;
-						if (in_array($dataAbsen_hari, $hari_kerja)) {
-							$jam_normal_pulang = "15:45:00";
-						} else {
-							$jam_normal_pulang = "16:15:00";
-						}
-						$a = strtotime($jam_normal_pulang);
-						$b = strtotime($dataabsen->jam_keluar);
-						if ($b) {
-							if ($dataabsen->status == 'L') {
-								echo 'Libur';
-							} else {
-								//									echo $b . "-" .$a;
-								if ($b > $a) {
-									echo 'Normal';
-								} else if ($b == $a) {
-									echo 'Pulang Seperti Biasa';
-								} else {
-									echo 'Lebih Cepat';
-								}
-							}
-						} else {
-							echo 'Tidak Mengisi Jam Pulang';
-						}
-						?>
-					</td>
+                        $jam_normal_pulang = null;
+                        if (in_array($dataAbsen_hari, $hari_kerja)) {
+                            $jam_normal_pulang = "15:45:00";
+                        } else {
+                            $jam_normal_pulang = "16:15:00";
+                        }
+                        $a = strtotime($jam_normal_pulang);
+                        $b = strtotime($dataabsen->jam_keluar);
+                        if ($b) {
+                            if ($dataabsen->status == 'L') {
+                                echo 'Libur';
+                            } else {
+                                //									echo $b . "-" .$a;
+                                if ($b > $a) {
+                                    echo 'Normal';
+                                } else if ($b == $a) {
+                                    echo 'Pulang Seperti Biasa';
+                                } else {
+                                    echo 'Lebih Cepat';
+                                }
+                            }
+                        } else {
+                            echo 'Tidak Mengisi Jam Pulang';
+                        }
+                        ?>
+                    </td>
 					<td style=" text-align: center;">
-						<?php
+                        <?php
 
-						// var_dump(empty($dataabsen->jam_masuk));
-						if (empty($dataabsen->jam_masuk) || empty($dataabsen->jam_keluar)) {
+                        // var_dump(empty($dataabsen->jam_masuk));
+                        if (empty($dataabsen->jam_masuk) || empty($dataabsen->jam_keluar)) {
 
-							echo "Tidak Mengisi Jam Pulang";
-						} else {
-							echo Helper::menghitung_selisih($dataabsen->jam_keluar, $dataabsen->jam_masuk);
-						}
+                            echo "Tidak Mengisi Jam Pulang";
+                        } else {
+                            echo Helper::menghitung_selisih($dataabsen->jam_keluar, $dataabsen->jam_masuk);
+                        }
 
-						?>
-					</td>
+                        ?>
+                    </td>
 					<td style=" text-align: center;">
-						<?php
-						if ($dataabsen->status == 'L') {
-							echo 'Libur';
-						} else {
-							$hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-							$dataAbsen_keluar = date('D', strtotime($dataabsen->tanggal_masuk));
+                        <?php
+                        if ($dataabsen->status == 'L') {
+                            echo 'Libur';
+                        } else {
+                            $hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                            $dataAbsen_keluar = date('D', strtotime($dataabsen->tanggal_masuk));
 
-							$jam_normal_pulang = null;
-							if (in_array($dataAbsen_keluar, $hari_kerja)) {
-								$jam_normal_pulang = "15:40:00";
-							} else {
-								$jam_normal_pulang = "16:15:00";
-							}
+                            $jam_normal_pulang = null;
+                            if (in_array($dataAbsen_keluar, $hari_kerja)) {
+                                $jam_normal_pulang = "15:40:00";
+                            } else {
+                                $jam_normal_pulang = "16:15:00";
+                            }
 
-							$jam_keluar = strtotime($dataabsen->jam_keluar);
-							$jam_normal = strtotime($jam_normal_pulang);
+                            $jam_keluar = strtotime($dataabsen->jam_keluar);
+                            $jam_normal = strtotime($jam_normal_pulang);
 
-							if ($jam_keluar > $jam_normal) {
+                            if ($jam_keluar > $jam_normal) {
 
-								echo Helper::menghitung_jumlah_ovt($dataabsen->jam_keluar, $jam_normal_pulang);
-							} else {
-								echo 'Tidak Ada Lembur';
-							}
-						}
-						?>
-					</td>
-					<td style=" text-align: center;">
-						<?php
-						if (is_null($dataabsen->jam_keluar)) {
-							echo 'Tidak Mengisi Jam Pulang';
+                                echo Helper::menghitung_jumlah_ovt($dataabsen->jam_keluar, $jam_normal_pulang);
+                            } else {
+                                echo 'Tidak Ada Lembur';
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td style=" text-align: center;">
+                        <?php
+                        if (is_null($dataabsen->jam_keluar)) {
+                            echo 'Tidak Mengisi Jam Pulang';
 
-							$total_plg_cepat = 0;
-						} else {
-							if ($dataabsen->status == 'L') {
-								echo 'Libur';
-							} else {
-								$hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-								$dataAbsen_cpt_plg = date('D', strtotime($dataabsen->tanggal_masuk));
+                            $total_plg_cepat = 0;
+                        } else {
+                            if ($dataabsen->status == 'L') {
+                                echo 'Libur';
+                            } else {
+                                $hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                                $dataAbsen_cpt_plg = date('D', strtotime($dataabsen->tanggal_masuk));
 
-								$jam_normal_pulang = null;
-								if (in_array($dataAbsen_cpt_plg, $hari_kerja)) {
-									$jam_normal_pulang = "15:45:00";
-								} else {
-									$jam_normal_pulang = "16:15:00";
-								}
+                                $jam_normal_pulang = null;
+                                if (in_array($dataAbsen_cpt_plg, $hari_kerja)) {
+                                    $jam_normal_pulang = "15:45:00";
+                                } else {
+                                    $jam_normal_pulang = "16:15:00";
+                                }
 
-								$jam_keluar = strtotime($dataabsen->jam_keluar);
-								$jam_normal = strtotime($jam_normal_pulang);
+                                $jam_keluar = strtotime($dataabsen->jam_keluar);
+                                $jam_normal = strtotime($jam_normal_pulang);
 
-								if ($jam_keluar < $jam_normal) {
+                                if ($jam_keluar < $jam_normal) {
 
-									$total_plg_cepat = Helper::menghitung_jumlah_cpt_pulang($dataabsen->jam_keluar, $jam_normal_pulang);
-									//										echo $total_plg_cepat;
-									echo $total_plg_cepat . " Menit Lebih Cepat";
-								} else {
-									$total_plg_cepat = 0;
-									echo 'Tidak Pulang Cepat';
-								}
-							}
-						}
-						?>
-					</td>
-					<td style=" text-align: center;">
-						<?php
-						if ($dataabsen->status == 'L') {
-							echo 'Libur';
-						} else {
-							$hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-							$dataAbsen_tlt_datang = date('D', strtotime($dataabsen->tanggal_masuk));
+                                    $total_plg_cepat = Helper::menghitung_jumlah_cpt_pulang($dataabsen->jam_keluar, $jam_normal_pulang);
+                                    //										echo $total_plg_cepat;
+                                    echo $total_plg_cepat . " Menit Lebih Cepat";
+                                } else {
+                                    $total_plg_cepat = 0;
+                                    echo 'Tidak Pulang Cepat';
+                                }
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td style=" text-align: center;">
+                        <?php
+                        if ($dataabsen->status == 'L') {
+                            echo 'Libur';
+                        } else {
+                            $hari_kerja = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                            $dataAbsen_tlt_datang = date('D', strtotime($dataabsen->tanggal_masuk));
 
-							$jam_normal_pulang = null;
-							if (in_array($dataAbsen_tlt_datang, $hari_kerja)) {
-								$jam_normal_masuk = "07:45:00";
-							} else {
-								$jam_normal_masuk = "07:45:00";
-							}
+                            $jam_normal_pulang = null;
+                            if (in_array($dataAbsen_tlt_datang, $hari_kerja)) {
+                                $jam_normal_masuk = "07:45:00";
+                            } else {
+                                $jam_normal_masuk = "07:45:00";
+                            }
 
-							$total_tlt_datang = Helper::menghitung_jumlah_tlt_datang($dataabsen->tanggal_masuk, "07:45:00", $dataabsen->jam_masuk);
+                            $total_tlt_datang = Helper::menghitung_jumlah_tlt_datang($dataabsen->tanggal_masuk, "07:45:00", $dataabsen->jam_masuk);
 
-							$jam_masuk = strtotime($dataabsen->jam_masuk);
-							$jam_normal_masuk = strtotime($jam_normal_masuk);
-							// var_dump($dataabsen->jam_masuk);
+                            $jam_masuk = strtotime($dataabsen->jam_masuk);
+                            $jam_normal_masuk = strtotime($jam_normal_masuk);
+                            // var_dump($dataabsen->jam_masuk);
 
-							// if($jm)
-							// echo $total_tlt_datang;
-							if ($jam_masuk > $jam_normal_masuk) {
-								//     //										echo $total_plg_cepat;
-								// $tlt = $total_tlt_datang . " Menit";
-								// echo $tlt;
-								echo '-';
-							} else {
-								$total_tlt_datang = 0;
-								echo 'Tidak Datang Telat';
-							}
-						}
-						?>
-					</td>
+                            // if($jm)
+                            // echo $total_tlt_datang;
+                            if ($jam_masuk > $jam_normal_masuk) {
+                                //     //										echo $total_plg_cepat;
+                                // $tlt = $total_tlt_datang . " Menit";
+                                // echo $tlt;
+                                echo '-';
+                            } else {
+                                $total_tlt_datang = 0;
+                                echo 'Tidak Datang Telat';
+                            }
+                        }
+                        ?>
+                    </td>
 				</tr>
 			<?php  } ?>
 		</tbody>

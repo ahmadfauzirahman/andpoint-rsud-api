@@ -71,13 +71,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        // if (App::isRoot() == false) {
-        //     return $this->redirect("http://sso.simrs.aa/");
-        // }
-
-        // if(App::is)
-
-
+        if (App::isRoot() == false) {
+            return $this->redirect("http://sso.simrs.aa/");
+        }
         // echo '<pre>';
         $penempatan = MasterRiwayatPenempatan::find()
             ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
@@ -164,11 +160,6 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
-
-    public function actionLaporanRekapUnit()
-    {
-        return $this->render('laporan-rekap-unit');
     }
 
     public function actionBuatJadwalSift()

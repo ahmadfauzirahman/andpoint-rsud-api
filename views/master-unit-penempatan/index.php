@@ -24,9 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'tableOptions' => [
-                'class' => 'table table-sm table-bordered table-hover table-list-item'
-            ],
             'bsVersion' => '4.x',
             'hover' => true,
             'toggleDataContainer' => ['class' => 'btn-group mr-2'],

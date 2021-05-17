@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-box table-responsive">
 
         <p class="text-muted font-14 m-b-30">
-            <?= Html::a('Tambah Master Pegawai <span class="fa fa-plus"></span>', ['create'], ['class' => 'btn btn-success btn-rounded']) ?>
+            <?= Html::a('Tambah Master Pegawai <span class="fa fa-plus"></span>', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <?php Pjax::begin(['enablePushState' => false]); ?>
@@ -25,9 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
-                'tableOptions' => [
-                    'class' => 'table table-sm table-bordered table-hover table-list-item'
-                ],
                 // 'formatter' => ['class' => 'yii\i18n\Formatter', 'nullDisplay' => '-'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],

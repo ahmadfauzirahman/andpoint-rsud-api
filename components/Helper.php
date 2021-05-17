@@ -423,7 +423,7 @@ class Helper
             $d = cal_days_in_month(CAL_GREGORIAN, $_POST['bulan'], date('Y'));
             $hariLiburNasional = $googleCalander->cekNationalFreeDay($_POST['bulan']);
         } else {
-            $d = cal_days_in_month(CAL_GREGORIAN, date('m', strtotime('-1 Months')), date('Y', strtotime('-1 Months')));
+            $d = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
             $hariLiburNasional = $googleCalander->cekNationalFreeDay();
         }
 
@@ -438,7 +438,7 @@ class Helper
             if (Yii::$app->request->isPost) {
                 $tanggal = strlen($i) ==  2 ? date('Y-' . $_POST['bulan'] . '-' .  $n) : date('Y-' . "0" . $_POST['bulan'] . '-'  .  $n);
             } else {
-                $tanggal = strlen($n) ==  2 ? date('Y-m-' .  $n, strtotime('-1 Months')) : date('Y-m-' . "0" .  $n, strtotime('-1 Months'));
+                $tanggal = strlen($n) ==  2 ? date('Y-m-' .  $n) : date('Y-m-' . "0" .  $n);
             }
             $dHari = date('D', strtotime($tanggal));
 
