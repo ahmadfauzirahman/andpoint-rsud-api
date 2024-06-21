@@ -2,9 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Absensi\Master\MasterJadwal;
 use Yii;
 use app\models\Absensi\MasterAbsensi;
 use app\models\Absensi\ModelSearch\MasterAbsensiSearch;
+use app\models\Kepegawaian\Master\MasterUnitPenempatan;
+use app\models\Kepegawaian\MasterPegawai;
+use app\models\Kepegawaian\MasterRiwayatPenempatan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -94,6 +98,107 @@ class MasterAbsensiController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDashboardAmbilAbsen()
+    {
+        $absen = MasterAbsensi::find()
+            ->where(['tanggal_masuk' => date("Y-m-d")])
+            ->orderBy('tanggal_masuk DESC')
+            ->all();
+        return $this->render(
+            'ambil-absen',
+            [
+                'absenHarini' => $absen
+            ]
+        );
+    }
+
+    public function actionBarcodeAbsensi()
+    {
+        return $this->render('barcode');
+    }
+
+    // save absen 
+    public function actionAmbilAbsenSave()
+    {
+
+        if (Yii::$app->request->isPost) {
+            $p = Yii::$app->request->post();
+            $model = new MasterAbsensi();
+
+            $nip = $p['nip'];
+
+            // ambil data pegawai untuk keperluan
+            $pegawai = MasterPegawai::findOne(['id_nip_nrp' => $nip]);
+
+            // chek jadwal kerja berdasarkan unit penempatan terakhir
+            $unit = self::checkJadwalKaryawan($nip);
+
+            // chek absen 
+
+            if ($unit->status_pegawai == 'PEGAWAI NON SHIFF') {
+                // ambil data absen dihari skrg untuk yang tidak siff
+                $absen = MasterAbsensi::find()->where(["tanggal_masuk" => date("Y-m-d")])
+                    ->andWhere(['nip_nik' => $nip])->one();
+
+                // jika kondisi absen null maka insert absen masuk dalam kondisi pegawai tidak ada mengajukan cuti atau izin sakit
+                // kondisi cuti dan izin belum dibuat
+                if (is_null($absen)) {
+                    $model->id_pegawai = (string)$pegawai->pegawai_id;
+                    $model->nip_nik = $nip;
+                    $model->jam_masuk = date('H:i:s');
+                    $model->jam_keluar = "";
+                    $model->tanggal_masuk = date('Y-m-d');
+                    $model->lat = "0.5233203";
+                    $model->long = "101.451869,15";
+                    $model->status = "h";
+                    $model->how = "Web";
+
+                    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+                    if ($model->save()) {
+                        return [
+                            's' => true,
+                            'e' => null
+                        ];
+                    } else {
+                        return [
+                            's' => false,
+                            'e' => $model->errors
+                        ];
+                    }
+                } else {
+                    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    $absen->jam_keluar = date('H:i:s');
+                    if ($absen->save()) {
+                        return [
+                            's' => true,
+                            'e' => null
+                        ];
+                    } else {
+                        return [
+                            's' => false,
+                            'e' => $model->errors
+                        ];
+                    }
+                }
+            }
+        }
+    }
+
+    //cek unit kerja terakhir karyawan skrg dimana 
+    public static function checkJadwalKaryawan($nip)
+    {
+        // ambil data penampatan terakahir
+        $penempatan = MasterRiwayatPenempatan::find()
+            ->where(['id_nip_nrp' => $nip])
+            ->orderBy('tanggal DESC')->limit(1)->one();
+
+        // ambil data jadwal master berdasarkan unit kerja
+        $unit =  MasterJadwal::findOne(['kode_unit_kerja' => $penempatan->unit_kerja]);
+        return $unit;
+    }
+
 
     /**
      * Deletes an existing MasterAbsensi model.

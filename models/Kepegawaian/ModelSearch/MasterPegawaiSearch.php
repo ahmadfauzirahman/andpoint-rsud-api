@@ -19,8 +19,8 @@ class MasterPegawaiSearch extends MasterPegawai
     public function rules()
     {
         return [
-            [['pegawai_id', 'kode_pos', 'status_kepegawaian_id', 'jenis_kepegawaian_id', 'kode_pangkat_cpns', 'masa_kerja_tahun_cpns', 'masa_kerja_bulan_cpns', 'tinggi_keterangan_badan', 'berat_badan_keterangan_badan', 'status_aktif_pegawai', 'masa_kerja_honorer', 'tipe_user'], 'integer'],
-            [['id_nip_nrp', 'nama_lengkap', 'kode_prov_kab_kec_kelurahan', 'kode_prov_kab_kecamatan', 'gelar_sarjana_depan', 'gelar_sarjana_belakang', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'status_perkawinan', 'agama', 'alamat_tempat_tinggal', 'rt_tempat_tinggal', 'rw_tempat_tinggal', 'desa_kelurahan', 'kecamatan', 'kabupaten_kota', 'provinsi', 'no_telepon_1', 'no_telepon_2', 'golongan_darah', 'nomor_karpeg', 'nomor_kartu_askes', 'nomor_kartu_taspen', 'nomor_karis_karsu', 'npwp', 'nomor_ktp', 'nota_persetujuan_bkn_nomor_cpns', 'nota_persetujuan_bkn_tanggal_cpns', 'pejabat_yang_menetapkan_cpns', 'sk_cpns_nomor_cpns', 'sk_cpns_tanggal_cpns', 'tmt_cpns', 'pejabat_yang_menetapkan_pns', 'sk_nomor_pns', 'sk_tanggal_pns', 'kode_pangkat_pns', 'tmt_pns', 'sumpah_janji_pns', 'masa_kerja_tahun_pns', 'masa_kerja_bulan_pns', 'rambut_keterangan_badan', 'bentuk_muka_keterangan_badan', 'warna_kulit_keterangan_badan', 'ciri_ciri_khas_keterangan_badan', 'cacat_tubuh_keterangan_badan', 'kegemaran_1', 'kegemaran_2', 'kegemaran_3', 'photo', 'kode_kategori_pegawai', 'kode_jenis_kepegawaian_rl4'], 'safe'],
+            [['pegawai_id', 'kode_pos', 'status_kepegawaian_id', 'jenis_kepegawaian_id', 'kode_pangkat_cpns', 'tinggi_keterangan_badan', 'berat_badan_keterangan_badan', 'status_aktif_pegawai', 'masa_kerja_honorer', 'tipe_user'], 'integer'],
+            [['id_nip_nrp', 'nama_lengkap', 'kode_prov_kab_kec_kelurahan', 'kode_prov_kab_kecamatan', 'gelar_sarjana_depan', 'gelar_sarjana_belakang', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'status_perkawinan', 'agama', 'alamat_tempat_tinggal', 'rt_tempat_tinggal', 'rw_tempat_tinggal', 'desa_kelurahan', 'kecamatan', 'kabupaten_kota', 'provinsi', 'no_telepon_1', 'no_telepon_2', 'golongan_darah', 'nomor_karpeg', 'nomor_kartu_askes', 'nomor_kartu_taspen', 'nomor_karis_karsu', 'npwp', 'nomor_ktp', 'nota_persetujuan_bkn_nomor_cpns', 'nota_persetujuan_bkn_tanggal_cpns', 'pejabat_yang_menetapkan_cpns', 'sk_cpns_nomor_cpns', 'sk_cpns_tanggal_cpns', 'tmt_cpns', 'pejabat_yang_menetapkan_pns', 'sk_nomor_pns', 'sk_tanggal_pns', 'kode_pangkat_pns', 'tmt_pns', 'sumpah_janji_pns', 'masa_kerja_bulan_pns', 'rambut_keterangan_badan', 'bentuk_muka_keterangan_badan', 'warna_kulit_keterangan_badan', 'ciri_ciri_khas_keterangan_badan', 'cacat_tubuh_keterangan_badan', 'kegemaran_1', 'kegemaran_2', 'kegemaran_3', 'photo', 'kode_kategori_pegawai', 'kode_jenis_kepegawaian_rl4'], 'safe'],
         ];
     }
 
@@ -71,8 +71,6 @@ class MasterPegawaiSearch extends MasterPegawai
             'sk_cpns_tanggal_cpns' => $this->sk_cpns_tanggal_cpns,
             'kode_pangkat_cpns' => $this->kode_pangkat_cpns,
             'tmt_cpns' => $this->tmt_cpns,
-            'masa_kerja_tahun_cpns' => $this->masa_kerja_tahun_cpns,
-            'masa_kerja_bulan_cpns' => $this->masa_kerja_bulan_cpns,
             'sk_tanggal_pns' => $this->sk_tanggal_pns,
             'tmt_pns' => $this->tmt_pns,
             'tinggi_keterangan_badan' => $this->tinggi_keterangan_badan,
@@ -113,7 +111,6 @@ class MasterPegawaiSearch extends MasterPegawai
             ->andFilterWhere(['ilike', 'sk_nomor_pns', $this->sk_nomor_pns])
             ->andFilterWhere(['ilike', 'kode_pangkat_pns', $this->kode_pangkat_pns])
             ->andFilterWhere(['ilike', 'sumpah_janji_pns', $this->sumpah_janji_pns])
-            ->andFilterWhere(['ilike', 'masa_kerja_tahun_pns', $this->masa_kerja_tahun_pns])
             ->andFilterWhere(['ilike', 'masa_kerja_bulan_pns', $this->masa_kerja_bulan_pns])
             ->andFilterWhere(['ilike', 'rambut_keterangan_badan', $this->rambut_keterangan_badan])
             ->andFilterWhere(['ilike', 'bentuk_muka_keterangan_badan', $this->bentuk_muka_keterangan_badan])

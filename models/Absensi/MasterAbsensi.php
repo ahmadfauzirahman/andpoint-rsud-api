@@ -2,6 +2,7 @@
 
 namespace app\models\Absensi;
 
+use app\models\Kepegawaian\MasterPegawai;
 use Yii;
 
 /**
@@ -16,6 +17,7 @@ use Yii;
  * @property string|null $lat
  * @property string|null $long
  * @property string|null $status
+ * @property string|null $how
  */
 class MasterAbsensi extends \yii\db\ActiveRecord
 {
@@ -33,8 +35,8 @@ class MasterAbsensi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jam_masuk', 'jam_keluar', 'tanggal_masuk'], 'safe'],
-            [['id_pegawai', 'status'], 'string', 'max' => 30],
+            [['jam_masuk', 'jam_keluar', 'tanggal_masuk', 'how'], 'safe'],
+            [['id_pegawai', 'status'], 'safe'],
             [['nip_nik'], 'string', 'max' => 40],
             [['lat', 'long'], 'string', 'max' => 20],
         ];
@@ -48,7 +50,7 @@ class MasterAbsensi extends \yii\db\ActiveRecord
         return [
             'id_tb_absensi' => 'Id Tb Absensi',
             'id_pegawai' => 'Nama Pegawai',
-            'nip_nik' => 'Nip/Nik',
+            'nip_nik' => 'Identitas User',
             'jam_masuk' => 'Jam Masuk',
             'jam_keluar' => 'Jam Keluar',
             'tanggal_masuk' => 'Tanggal Masuk',
@@ -56,5 +58,14 @@ class MasterAbsensi extends \yii\db\ActiveRecord
             'long' => 'Longitude',
             'status' => 'Status Absensi',
         ];
+    }
+
+    public function getPegawai()
+    {
+        return $this->hasOne(MasterPegawai::className(), ['pegawai_id' => 'id_pegawai']);
+    }
+
+    public function getUnit()
+    {
     }
 }

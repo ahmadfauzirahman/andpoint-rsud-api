@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Absensi\MasterAbsensi;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,6 +10,10 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\JadwalSift;
+use app\models\Kepegawaian\MasterPegawai;
+use app\models\Kepegawaian\MasterRiwayatPenempatan;
+use app\widgets\App;
 
 class SiteController extends Controller
 {
@@ -26,7 +31,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'maps', 'buat-jadwal-sift'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -66,11 +71,33 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        if (Yii::$app->user->identity->getRoles() == 'NONMEDIS' || Yii::$app->user->identity->getRoles() == 'MEDIS') {
-            return $this->redirect(['/master-pegawai/profile-saya']);
+        if (App::isRoot() == false) {
+            return $this->redirect("http://sso.simrs.aa/");
         }
+        // echo '<pre>';
+        $penempatan = MasterRiwayatPenempatan::find()
+            ->where(['id_nip_nrp' => Yii::$app->user->identity->kodeAkun])
+            ->orderBy('tanggal DESC')->limit(1)->one();
+        // if (
+        //     Yii::$app->user->identity->roles == 'NONMEDIS'
+        //     || Yii::$app->user->identity->roles == 'MEDIS'
+        // ) {
+        //     return $this->redirect(['/master-pegawai/profile-saya']);
+        // }
 
-        return $this->render('index');
+        // var_dump($limit5['nama_lengkap']);
+        // exit;
+
+        return $this->render('index', [
+            'model' => $penempatan,
+            // 'allTerbaru' => $absen,
+            // 'limit5' => $limit5,
+        ]);
+    }
+
+    public function actionMaps()
+    {
+        return $this->render('maps');
     }
 
     /**
@@ -135,5 +162,13 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    
+    public function actionBuatJadwalSift()
+    {
+        $model = new JadwalSift();
+        $modelAbsensi = new MasterPegawai();
+        return $this->render('buat-jadwal-sift', [
+            'model' => $model,
+            'modelAbsensi' => $modelAbsensi
+        ]);
+    }
 }

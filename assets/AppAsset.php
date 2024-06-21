@@ -21,10 +21,10 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web/theme';
     public $css = [
-        // "css/bootstrap.min.css",
+        "css/bootstrap.min.css",
         "css/icons.css",
-        '../plugin/fontawesome-free/css/all.min.css',
         "css/style.css",
+        '../plugin/fontawesome-free/css/all.min.css',
         
         "js/modernizr.min.js",
         'plugins/toastr/toastr.min.css',
@@ -40,6 +40,7 @@ class AppAsset extends AssetBundle
         "js/jquery.nicescroll.js",
         "js/jquery.slimscroll.js",
         "js/jquery.scrollTo.min.js",
+        'https://cdn.jsdelivr.net/npm/sweetalert2@9',
 
         // App js
         "js/jquery.core.js",
@@ -51,6 +52,6 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
 
-        'yii\bootstrap4\BootstrapAsset',
+        // 'yii\bootstrap4\BootstrapAsset',
     ];
 }

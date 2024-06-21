@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Kepegawaian\MasterPegawai;
-use app\models\Kepegawaian\ModelSearch\MasterPegawaiSearch;
+use app\models\Kepegawaian\ModelSearch\MasterPegawai as MasterPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -107,12 +107,6 @@ class MasterPegawaiController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-
-    public function actionProfileSaya()
-    {
-        return $this->render('profile-saya');
     }
 
     /**

@@ -6,7 +6,7 @@ return [
 //    'dsn' => 'pgsql:host=192.168.254.21;port=5432;dbname=simrsfarmasiv2',
 
     'username' => 'postgres',
-    'password' => 'postgres',
+    'password' => '',
     'charset' => 'utf8',
 
 

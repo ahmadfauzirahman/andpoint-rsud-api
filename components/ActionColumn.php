@@ -1,13 +1,5 @@
 <?php
-/*
- * @Author: Dicky Ermawan S., S.T., MTA 
- * @Email: wanasaja@gmail.com 
- * @Web: dickyermawan.github.io 
- * @Linkedin: linkedin.com/in/dickyermawan 
- * @Date: 2020-02-04 14:28:45 
- * @Last Modified by: Dicky Ermawan S., S.T., MTA
- * @Last Modified time: 2020-02-04 14:30:22
- */
+
 
 
 namespace app\components;
@@ -40,15 +32,15 @@ class ActionColumn extends \yii\grid\ActionColumn
                 switch ($name) {
                     case 'view':
                         $title = Yii::t('yii', 'View');
-                        $class = 'btn btn-info btn-sm btn-icon';
+                        $class = 'btn btn-info btn-sm btn-icon btn-rounded';
                         break;
                     case 'update':
                         $title = Yii::t('yii', 'Update');
-                        $class = 'btn btn-warning btn-sm btn-icon';
+                        $class = 'btn btn-warning btn-sm btn-icon btn-rounded';
                         break;
                     case 'delete':
                         $title = Yii::t('yii', 'Delete');
-                        $class = 'btn btn-danger btn-sm btn-icon';
+                        $class = 'btn btn-danger btn-sm btn-icon btn-rounded';
                         break;
                     default:
                         $title = ucfirst($name);
